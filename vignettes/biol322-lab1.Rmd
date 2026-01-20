@@ -3,7 +3,7 @@ title: "BIOL 322 Lab 1.  Building Population Growth Models in Vensim PLE"
 date: "Spring 2026"
 output: 
   html_document:
-    toc: false
+    toc: True
   pdf_document:
     toc: TRUE
     toc_depth: 3
@@ -20,13 +20,19 @@ During lab, we will work in groups. Here are the groups assigned for today's exe
 
 ## Overview
 
-<p>For this initial lab exercise, we will introduce the modeling software program Vensim PLE. Before starting this exercise, download and install the free version of [Vensim PLE](https://vensim.com/free-downloads/) OR you may access the program via the machines in the SCTR A262 computer lab.</p>
+For this initial lab exercise, we will introduce the modeling software program Vensim PLE. Before starting this exercise, download and install the free version of [Vensim PLE](https://vensim.com/free-downloads/) OR you may access the program via the machines in the SCTR A262 computer lab.
 
-<p>IMPORTANT NOTE: These instructions are written for version 9.3.5 of VensimPLE, the version you would download to a personal machine. The computers in A262 use a slightly older version of the program and the icons and menu item names differ somewhat. For help, try this [Vensim Quick Reference Guide](articles/sheets/sci_articles/VenPLE-QuickReference.pdf). Or try the Vensim User Guide, available via the Help menu.
+IMPORTANT NOTE: These instructions are written for version 9.3.5 of VensimPLE, the version you would download to a personal machine. The computers in A262 use a slightly older version of the program and the icons and menu item names differ somewhat. For help, try this [Vensim Quick Reference Guide](articles/sheets/sci_articles/VenPLE-QuickReference.pdf). Or try the Vensim User Guide, available via the Help menu.
 
-<p>Vensim PLE is a modeling application that allows the construction of a variety of modeling paradigms and the capability of graphical output. On the machine of your choice (your own or the computer lab machine), open the Vensim PLE application. When the program starts up, you should see a window that looks like the image below, without blank space instead of the model in the middle! You may want to download and open this image so you can zoom in to read the labels -- the pink labels are the ones we want to pay attention to. The whole window is the Workbench, with the white space in the middle being where we will construct our models, that's the Build Window.
+Vensim PLE is a modeling application that allows the construction of a variety of modeling paradigms and the capability of graphical output. On the machine of your choice (your own or the computer lab machine), open the Vensim PLE application. When the program starts up, you should see a window that looks like the image below, without blank space instead of the model in the middle! You may want to download and open this image so you can zoom in to read the labels -- the pink labels are the ones we want to pay attention to. The whole window is the Workbench, with the white space in the middle being where we will construct our models, that's the Build Window.
 
-<p><img src="labimg/vensim-workspace.png" alt="View of the opening window of Vensim" style="width:600px; height:326px; padding:0em;"></p>
+![View of the opening window of Vensim](man/figures/vensim-workspace.png)
+
+```{r vensim img, fig.align = 'center', fig.height = 4, fig.width = 7, echo = FALSE, fig.alt="View of the opening window of Vensim"}
+knitr::include_graphics(file.path(here::here(), 'man', 'figures', 'vensim-workspace.png'), dpi = 100)
+```
+
+<img src="man/figures/vensim-workspace.png" alt="View of the opening window of Vensim" style="width:600px; height:326px; padding:0em;">
 
 <ul style="font-weight:normal;" role="list">
 <li>At the top we have the standard Menu Bar, with the File, Edit, etc menus.</li>
@@ -36,7 +42,7 @@ During lab, we will work in groups. Here are the groups assigned for today's exe
 <li>At the bottom, we have Navigation and Appearance Tools.</li>
 </ul>
 
-<p><b>BEFORE WE GO FURTHER, go to Tools --> Options... Click on Toolbars and check the box for Show icon labels. This will give the names below each icon and it will make it much easier to get started.</b></p>
+<b>BEFORE WE GO FURTHER, go to Tools --> Options... Click on Toolbars and check the box for Show icon labels. This will give the names below each icon and it will make it much easier to get started.</b>
 </section>
 
 <a class="anchor" id="learning"></a>
@@ -44,15 +50,15 @@ During lab, we will work in groups. Here are the groups assigned for today's exe
 
 <h2>Learning to Build a Basic Population Growth Model</h2>
 
-<p>To get started, we'll build a few simple and familiar models of population growth (which will also form the basis of our later models): the exponential growth model and the logistic growth model. Both of these models describe/predict how the size of a population (number of individuals) will change over time, as a function of other variables like growth rate.</p>
+To get started, we'll build a few simple and familiar models of population growth (which will also form the basis of our later models): the exponential growth model and the logistic growth model. Both of these models describe/predict how the size of a population (number of individuals) will change over time, as a function of other variables like growth rate.
 
-<p>The development of population growth models is motivated by the observation that population size does change in natural populations—in repeatable ways. That is, if you set up an experimental population of organisms, with a renewable food source, you will observe that population size changes (increases) in similar ways in replicate populations (e.g., how quickly population size increases, at what point it stabilizes). This led biologists to fit a function to those lines, which we could then interpret in terms of ecological processes (like births and deaths).</p>
+The development of population growth models is motivated by the observation that population size does change in natural populations—in repeatable ways. That is, if you set up an experimental population of organisms, with a renewable food source, you will observe that population size changes (increases) in similar ways in replicate populations (e.g., how quickly population size increases, at what point it stabilizes). This led biologists to fit a function to those lines, which we could then interpret in terms of ecological processes (like births and deaths).
 
-<p><b>Thus, there is nothing special about the equations that we use here, they were chosen because they fit the observed data reasonably well.</b></p>
+<b>Thus, there is nothing special about the equations that we use here, they were chosen because they fit the observed data reasonably well.</b>
 
-<p>In both models, we assume that individuals are added to the population as a result of births and removed from the population as a result of deaths. We will ignore immigration and emigration for today's models.</p>
+In both models, we assume that individuals are added to the population as a result of births and removed from the population as a result of deaths. We will ignore immigration and emigration for today's models.
 
-<p>Since we know what we want to portray (growth of a population from some starting number, as a result of births and allowing for deaths), we need to think about what variables should be in our model and what should happen to those variables over time.</p>
+Since we know what we want to portray (growth of a population from some starting number, as a result of births and allowing for deaths), we need to think about what variables should be in our model and what should happen to those variables over time.
 
 <ul style="font-weight:normal;" role="list">
 <li><b>Population size</b> is the number of individuals in the population. It's the variable we want to recalculate each generation, accounting for births and deaths and record as an output. Usually, we're going to expect it to change over time. We'll need to set a starting value and then check, every generation, to see how it has changed.</li><br>
@@ -67,15 +73,15 @@ During lab, we will work in groups. Here are the groups assigned for today's exe
 <section>		
 
 <h2>Exponential Population Growth Model</h2>
-<p>The first population growth model we'll create is the exponential growth model. This is a model in which resources are unlimited so there is no resource-based cap to how many individuals can survive.</p>
+The first population growth model we'll create is the exponential growth model. This is a model in which resources are unlimited so there is no resource-based cap to how many individuals can survive.
 
-<p>How do we graphically represent our growth model? Well, we're going to use a stock-and-flow model, where <b>stocks</b> are ‘boxes' that can count stuff up for us and <b>flows</b> contain the equations that update the value of the stocks based on other parameters that we specify (like birth or death rate). So in our model, <u>population size will be a stock and the equation calculating change in population size will be a flow</u>. The stock and flow will be connected so that the flow can change the value of the stock each timestep.</p>
+How do we graphically represent our growth model? Well, we're going to use a stock-and-flow model, where <b>stocks</b> are ‘boxes' that can count stuff up for us and <b>flows</b> contain the equations that update the value of the stocks based on other parameters that we specify (like birth or death rate). So in our model, <u>population size will be a stock and the equation calculating change in population size will be a flow</u>. The stock and flow will be connected so that the flow can change the value of the stock each timestep.
 
-<p>Before we actually construct the model, let's look a little closer at the math we'll be thinking about to create this model. If we consider a population of organisms, newborn organisms arrive due to births and other organisms depart due to deaths. In VensimPLE, we can represent births as a flow IN and deaths as a flow OUT. Or, we can use a single bidirectional flow, where the overall direction of the flow (increasing or decreasing the stock's value) is the net result of birth rate minus death rate <i>(b − d)</i>. Thus, growth rate is <i>r = b − d</i>, the intrinsic rate of increase. Note that <i>r</i> usually represents the maximum rate of growth. We will model the size of the population over time based on the rate of birth (<i>b</i>), the rate of death (<i>d</i>), and the current value of <i>N</i> (population size). Right now, we're not worrying about genetics-—as if we are assuming everyone is the same genotype—-so we aren't tracking different genotypes, just counting the number of total individuals.</p>
+Before we actually construct the model, let's look a little closer at the math we'll be thinking about to create this model. If we consider a population of organisms, newborn organisms arrive due to births and other organisms depart due to deaths. In VensimPLE, we can represent births as a flow IN and deaths as a flow OUT. Or, we can use a single bidirectional flow, where the overall direction of the flow (increasing or decreasing the stock's value) is the net result of birth rate minus death rate <i>(b − d)</i>. Thus, growth rate is <i>r = b − d</i>, the intrinsic rate of increase. Note that <i>r</i> usually represents the maximum rate of growth. We will model the size of the population over time based on the rate of birth (<i>b</i>), the rate of death (<i>d</i>), and the current value of <i>N</i> (population size). Right now, we're not worrying about genetics-—as if we are assuming everyone is the same genotype—-so we aren't tracking different genotypes, just counting the number of total individuals.
 
-<p>So, if we have population size at time zero, N<sub>0</sub>, and we want to know population size after one time step, N<sub>1</sub> (one generation), we are going to use the exponential growth equation: <br><math style="margin:1em"><i>dN / dt = rN<sub>t</sub></i></math></p>
+So, if we have population size at time zero, N<sub>0</sub>, and we want to know population size after one time step, N<sub>1</sub> (one generation), we are going to use the exponential growth equation: <br><math style="margin:1em"><i>dN / dt = rN<sub>t</sub></i></math>
 
-<p>In the two-flows model, remember that we'll have to separate the calculation for birth and the one for death into two different flows. But in the single flow version, we'll have a flow for growth which will contain the equation <i>N*(b-d)</i>. Let's get started on the two flow exponential model.</p>
+In the two-flows model, remember that we'll have to separate the calculation for birth and the one for death into two different flows. But in the single flow version, we'll have a flow for growth which will contain the equation <i>N*(b-d)</i>. Let's get started on the two flow exponential model.
 
 <h3>Two-flow exponential model</h3>
 <ol style="font-weight:normal;" role="list">
@@ -119,7 +125,7 @@ During lab, we will work in groups. Here are the groups assigned for today's exe
 <li>Note that you can change the shape of arrows by dragging the circle in the middle of the arrow shaft. You can also position arrows by clicking on white space in between the two endpoints, as you are setting up the arrow. If you want to delete a component, click on Delete and then click on the component you want to remove.</li><br>
 
 <li>Your model should now look something like the following. Notice that stocks are in boxes, flows have this hourglass and arrow structure and other variables (rates or constants) have no surrounding shape. All components have a small circle in the bottom right corner, this is used for moving and resizing.
-<p><img src="labimg/twoflowexponential.png" alt="View of the opening window of Vensim" style="width:400px; height:160px; padding:0em;"></p></li>
+<img src="labimg/twoflowexponential.png" alt="View of the opening window of Vensim" style="width:400px; height:160px; padding:0em;"></li>
 <!-- original size 474, 184 -->
 <li>Now we've created the image of the variables we want to include, we need to give them values so the model will know how they are related to each other. We will choose an initial population size and after the first time step, the pop size will be determined by the values of the two flows. We'll put equations in the flows, using the existing population size and the birth or death rates (which give us how many babies per current individual or how many deaths of the current individuals). The birth and death rates can be constant values or we can set them up to vary. We'll start by making them constants.</li><br>
 
@@ -159,18 +165,18 @@ During lab, we will work in groups. Here are the groups assigned for today's exe
 
 <h2>Logistic Growth Model</h2>
 
-<p>Next, you are going to build a model of population growth when resources are limited but renewable — the logistic growth model. In logistic growth models, we assume that the renewable resources available in the environment can only support so many individuals and thus the rate of growth varies depending on the density of the population, slowing down as the population approaches the carrying capacity. At carrying capacity the rate of growth will be zero since no more individuals can be supported. The equation for logistic growth is:</p>
-<p><i>dN/dt = &Delta;N = rN<sub>t</sub>(1 - N<sub>t</sub>/K)</i></p>
+Next, you are going to build a model of population growth when resources are limited but renewable — the logistic growth model. In logistic growth models, we assume that the renewable resources available in the environment can only support so many individuals and thus the rate of growth varies depending on the density of the population, slowing down as the population approaches the carrying capacity. At carrying capacity the rate of growth will be zero since no more individuals can be supported. The equation for logistic growth is:
+<i>dN/dt = &Delta;N = rN<sub>t</sub>(1 - N<sub>t</sub>/K)</i>
 
-<p>This model includes the parameter <i>K</i>, the carrying capacity of the population. In this model, we usually use <i>r</i> to represent the maximum rate of growth and we don't separate the effects of births and deaths. You can think of <i>r(1 − N<sub>t</sub>/K)</i> as the actual rate of growth, given the population K density.</p>
+This model includes the parameter <i>K</i>, the carrying capacity of the population. In this model, we usually use <i>r</i> to represent the maximum rate of growth and we don't separate the effects of births and deaths. You can think of <i>r(1 − N<sub>t</sub>/K)</i> as the actual rate of growth, given the population K density.
 
-<p>With your group, go ahead and try to build this model (see image below). Note: Do not use the equations from the exponential growth model when building the logistic model. However, you can use <i>r</i> instead of having separate values of <i>b</i> and <i>d</i>.</p>
+With your group, go ahead and try to build this model (see image below). Note: Do not use the equations from the exponential growth model when building the logistic model. However, you can use <i>r</i> instead of having separate values of <i>b</i> and <i>d</i>.
 
-<p>When you set up the model, you will have similar parameters to your exponential model but you will also have a carrying capacity (<i>K</i>). Let's use K = 200, r = 0.3, and set initial N to 10 like we had earlier.</p>
+When you set up the model, you will have similar parameters to your exponential model but you will also have a carrying capacity (<i>K</i>). Let's use K = 200, r = 0.3, and set initial N to 10 like we had earlier.
 
-<p><img src="labimg/logistic.png" alt="View of the opening window of Vensim" style="width:276px; height:168px; padding:0em;"></p></li>
+<img src="labimg/logistic.png" alt="View of the opening window of Vensim" style="width:276px; height:168px; padding:0em;"></li>
 
-<p>Once you get your model running, let's explore what happens when you change the value of <i>r</i>. With K = 200, we'll try r = 0.3, r = 1.0, r = 2.0, r = 2.5, r = 2.7. Instead of using SyntheSim like we did earlier, we're going to learn another way to test out different conditions: using Simulation Control.</p>
+Once you get your model running, let's explore what happens when you change the value of <i>r</i>. With K = 200, we'll try r = 0.3, r = 1.0, r = 2.0, r = 2.5, r = 2.7. Instead of using SyntheSim like we did earlier, we're going to learn another way to test out different conditions: using Simulation Control.
 	<ul role="list">
 	<li>Click Simulation Control on the first horizontal icon bar. A box will pop up where we'll save the changes we make. In the popup box, change the run name to r0p3 (you can't use decimals in the run name) and in the Comment box type 'r = 0.3', this will be our default run where we don't change the value of r. You can click on r to confirm it is set to 0.3. Click Save Changes and then click Simulate.</li><br>
 	<li>Now we want to create a new simulation with r = 1.0. Click on Simulation Control again and this time change the run name to r1p0 and in Comments type 'r = 1.0'. Click on the variable r and change the value to 1. Then click Save Changes and Simulate.</li><br>
@@ -180,14 +186,14 @@ During lab, we will work in groups. Here are the groups assigned for today's exe
 
 
 <h2>What's Next?</h2>
-<p>If you want, go ahead and explore more of the features of VensimPLE. For example, you can use  Comments to leave notes for yourself (or me) on the Build Window. Or maybe to record info that you will need later.</p>
+If you want, go ahead and explore more of the features of VensimPLE. For example, you can use  Comments to leave notes for yourself (or me) on the Build Window. Or maybe to record info that you will need later.
 </section>
 
 <a class="anchor" id="submit"></a>
 <section>		
 
 <h2>Lab Write-Up</h2>
-<p>For this lab exercise, you gained some experience using the program VensimPLE to build simple population growth models. As a write-up please respond individually, in narrative form, to the following questions:</p>
+For this lab exercise, you gained some experience using the program VensimPLE to build simple population growth models. As a write-up please respond individually, in narrative form, to the following questions:
 
 <ol role="list">
 <li>Imagine a friend asked you what you did in lab today and provide a brief description.</li>
@@ -197,4 +203,4 @@ During lab, we will work in groups. Here are the groups assigned for today's exe
 <li>Describe how population growth differed between the exponential and the logistic models. What happened when you varied the value of r in the logistic model? What do you think is going on? <i>Hint: think about what the large values of r mean.</i></li>
 </ol>
 
-<p>Submit your responses to the Google Form: <a href="https://forms.gle/E3QLACX1aA2Q6ist5">https://forms.gle/E3QLACX1aA2Q6ist5</a>. Write-up are due by the next lab period.</p>
+Submit your responses to the Google Form: <a href="https://forms.gle/E3QLACX1aA2Q6ist5">https://forms.gle/E3QLACX1aA2Q6ist5</a>. Write-up are due by the next lab period.
