@@ -28,12 +28,6 @@ Vensim PLE is a modeling application that allows the construction of a variety o
 
 ![View of the opening window of Vensim](../man/figures/vensim-workspace.png)
 
-```{r vensim img, fig.align = 'center', fig.height = 4, fig.width = 7, echo = FALSE, fig.alt="View of the opening window of Vensim"}
-knitr::include_graphics(file.path(here::here(), 'man', 'figures', 'vensim-workspace.png'), dpi = 100)
-```
-
-<img src="../man/figures/vensim-workspace.png" alt="View of the opening window of Vensim" style="width:600px; height:326px; padding:0em;">
-
 <ul style="font-weight:normal;" role="list">
 <li>At the top we have the standard Menu Bar, with the File, Edit, etc menus.</li>
 <li>The first horizontal bar of icons is the Main Toolbar, with icon links for things like saving, cutting and pasting, etc.</li>

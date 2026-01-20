@@ -1,0 +1,15 @@
+/* Add space between list items */
+li {
+  margin-bottom: 10px;
+}
+
+/* Add extra indentation for nested lists */
+ul ul, ol ol, ul ol, ol ul {
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+/* Ensure the last item doesn't have extra bottom margin */
+li:last-child {
+  margin-bottom: 0;
+}
