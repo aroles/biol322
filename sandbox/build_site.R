@@ -1,6 +1,7 @@
 # Authors@R: person("Prof. A. Roles", email = "", role = c("aut", "cre"))
 
-# remotes::install_github("aroles/biol210")
+# you have to activate github pages before the site will exist
+# remotes::install_github("aroles/biol322")
 # run above if updated R otherwise package will not be found
 # also install any packages needed
 
