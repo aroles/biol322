@@ -3,7 +3,7 @@ title: "BIOL 322 Lab 1.  Building Population Growth Models in Vensim PLE"
 date: "Spring 2026"
 output: 
   html_document:
-    toc: TRUE
+    toc: false
   pdf_document:
     toc: TRUE
     toc_depth: 3
