@@ -14,23 +14,25 @@ li:last-child {
   margin-bottom: 0;
 }
 
-/* 1. Add space after images */
-/* This targets images inside your main content area */
-.contents img, 
-.contents figure {
+/* Target the paragraph that contains the image */
+.contents p:has(img) {
+  margin-bottom: 50px !important;
+}
+
+/* Target the image itself just in case */
+.contents img {
   margin-bottom: 40px !important;
-  display: block; /* Ensures the margin is respected */
+  display: block;
 }
 
-/* 2. Add space after image captions */
-.contents figcaption {
-  margin-top: 10px;
-  margin-bottom: 30px;
-  font-style: italic;
-  color: #555;
+/* Target the figure container if pkgdown generates it */
+.contents figure, .contents .figure {
+  margin-bottom: 50px !important;
+  margin-top: 20px;
 }
 
-/* 3. Your list spacing (from previous step) */
-.contents li {
-  margin-bottom: 8px;
+/* Target the caption specifically to push the following text down */
+.contents figcaption, .contents .caption {
+  margin-bottom: 40px !important;
+  display: block;
 }
