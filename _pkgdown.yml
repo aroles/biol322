@@ -1,9 +1,9 @@
 template:
   bootstrap: 5
-  bootswatch: zephyr
+  bootswatch: minty
   bslib: 
       pkgdown-nav-height: 100px
-url: https://aroles.github.io/biol210/
+url: https://aroles.github.io/biol322/
 home:
   links:
   # - text: Biology 322 Website
