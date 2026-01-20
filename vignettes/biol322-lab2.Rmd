@@ -11,7 +11,7 @@ pkgdown:
   as_is: true
 ---
 
-<p>When you have completed the exercise below, submit your model and your lab write-up via the Google Drive Form (<a href="https://forms.gle/ E3QLACX1aA2Q6ist5">https://forms.gle/ E3QLACX1aA2Q6ist5</a>). Responses due by the following week's lab period.</p>
+<p>When you have completed the exercise below, submit your model and your lab write-up via the [Google Drive Form](https://docs.google.com/forms/d/e/1FAIpQLSdA2mkUojv-37gaK0ON-B8B2a7y5cxnMUJRhaqX747QtbMxhA/viewform?usp=header). Responses due by the following week's lab period.</p>
 
 <p>During lab, we will work in groups. Here are the groups assigned for today's exercise:</p>
 
@@ -27,7 +27,7 @@ pkgdown:
 
 ## Modeling Hardy-Weinberg Intro
 
-<p>Before starting the model, think about what we are trying to do. What happens in the HW model? For an example, consider a population of mussels that reproduce by <a href="https://youtu.be/SZ56PCWpB6o">broadcast spawning</a>: once a year, individuals release their gametes into the water column, where they meet up with other gametes at random and undergo syngamy to form a new zygote (see figure).</p>
+<p>Before starting the model, think about what we are trying to do. What happens in the HW model? For an example, consider a population of mussels that reproduce by [broadcast spawning](https://youtu.be/SZ56PCWpB6o): once a year, individuals release their gametes into the water column, where they meet up with other gametes at random and undergo syngamy to form a new zygote (see figure).</p>
 
 
 <p>
@@ -301,7 +301,7 @@ pkgdown:
 4. A younger friend of yours tells you that a population is only in Hardy-Weinberg when p = 0.5 and q = 0.5. How do you respond?
 5. How did today's model building go for you? Was there anything of particular interest or frustration?
 
-<p><b>Find your saved model file (should end in .mdl). Submit the model and your responses to the Google Form: <a href="https://forms.gle/E3QLACX1aA2Q6ist5">https://forms.gle/E3QLACX1aA2Q6ist5</a>. Write-up are due by the next lab period.</b></p><br>
+<p><b>Find your saved model file (should end in .mdl). Submit the model and your responses to the [Google Drive Form](https://docs.google.com/forms/d/e/1FAIpQLSdA2mkUojv-37gaK0ON-B8B2a7y5cxnMUJRhaqX747QtbMxhA/viewform?usp=header). Write-up are due by the next lab period.</b></p><br>
 
 
 ## Key to Equations

@@ -13,3 +13,24 @@ ul ul, ol ol, ul ol, ol ul {
 li:last-child {
   margin-bottom: 0;
 }
+
+/* 1. Add space after images */
+/* This targets images inside your main content area */
+.contents img, 
+.contents figure {
+  margin-bottom: 40px !important;
+  display: block; /* Ensures the margin is respected */
+}
+
+/* 2. Add space after image captions */
+.contents figcaption {
+  margin-top: 10px;
+  margin-bottom: 30px;
+  font-style: italic;
+  color: #555;
+}
+
+/* 3. Your list spacing (from previous step) */
+.contents li {
+  margin-bottom: 8px;
+}
