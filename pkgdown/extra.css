@@ -36,3 +36,7 @@ li:last-child {
   margin-bottom: 40px !important;
   display: block;
 }
+
+body {
+  border-top: 10px solid red !important;
+}

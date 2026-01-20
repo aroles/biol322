@@ -11,9 +11,9 @@ pkgdown:
   as_is: true
 ---
 
-<p>When you have completed the exercise below, submit your model and your lab write-up via the [Google Drive Form](https://docs.google.com/forms/d/e/1FAIpQLSdA2mkUojv-37gaK0ON-B8B2a7y5cxnMUJRhaqX747QtbMxhA/viewform?usp=header). Responses due by the following week's lab period.</p>
+When you have completed the exercise below, submit your model and your lab write-up via the [Google Drive Form](https://docs.google.com/forms/d/e/1FAIpQLSdA2mkUojv-37gaK0ON-B8B2a7y5cxnMUJRhaqX747QtbMxhA/viewform?usp=header). Responses due by the following week's lab period.
 
-<p>During lab, we will work in groups. Here are the groups assigned for today's exercise:</p>
+During lab, we will work in groups. Here are the groups assigned for today's exercise:
 
 * team 1
 * team 2
