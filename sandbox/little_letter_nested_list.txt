@@ -1,0 +1,16 @@
+<ol>
+<li>first outside list item</li>
+<ol type="a">
+<li>first lettered item (2nd level)</li>
+</ol>
+</ol>
+
+
+<li>
+
+<ol color = "white">
+<ol type="a" style="font-weight: normal;">
+<li><span style="inline-block;margin-left: -9px !important; margin-left: -15px;">) &nbsp;</span>   </li>
+</ol></ol></li>
+
+<li>

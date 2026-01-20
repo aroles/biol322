@@ -1,0 +1,49 @@
+template:
+  bootstrap: 5
+  bootswatch: zephyr
+  bslib: 
+      pkgdown-nav-height: 100px
+url: https://aroles.github.io/biol210/
+home:
+  links:
+  # - text: Biology 322 Website
+  #   href: https://aroles.github.io/biol322/
+  - text: Oberlin Biology Department
+    href: https://www.oberlin.edu/arts-and-sciences/departments/biology
+  - text: Oberlin Biology Major Overview
+    href: https://catalog.oberlin.edu/preview_program.php?catoid=49&poid=8753
+  - text: Oberlin Biology Major Guidebook
+    href: articles/sheets/sci_articles/Guidebook_Biology_Majors_2025_2026_final.pdf
+navbar:
+  left:
+  - icon: fa-home fa-lg
+    href: index.html
+  - text: Course Materials
+    menu:
+    - text: '----------------'
+    - text: Syllabus PDF
+      href: articles/sheets/sci_articles/biol322-syllabus-Roles-spring2026.pdf
+    - text: Grade Contract Template
+      href: https://docs.google.com/document/d/1sV-864Y8L7gAb3LwBSqtKKL0P0aBKue20PB63_IPu-Y/edit?usp=sharing
+    - text: Course GDrive folder
+      href: https://drive.google.com/drive/folders/1arcg7_nXRov4kTE3jgnS3q8DQ9DwZcFO?usp=sharing
+    - text: In-class materials
+      href: https://drive.google.com/drive/folders/1xDjUUTZY1j88zHregL34JMnaW6BZAUzq?usp=drive_link
+    - text: Lab Exercises
+      href: articles/lab-exercises.main.html
+    - text: Exams
+      href: https://drive.google.com/drive/folders/1ZuXCOFdWGMYW6JMkuYXSKr1I2bELQYDm?usp=drive_link
+    - text: Midterm Reflection
+      href: https://docs.google.com/document/d/1VkC-BHN8_EGvSv86qwt3uVwcK--VN61rOL4qlOGoAos/edit?usp=drive_link
+    - text: Student Folders
+      href: https://drive.google.com/drive/folders/18AjoufAqq3saqJmHq8bZrmXG0pGoEM00?usp=drive_link
+    - text: Check Progress Spreadsheet
+      href: https://docs.google.com/spreadsheets/d/1cfcKbMkjukYi1RewOfqhoLowUIsxJcsT34LbCcgj39I/edit?usp=drive_link
+    - text: '----------------'
+  - text: Course Agenda
+    href: https://docs.google.com/document/d/1gNcEPhAxowrrbwCOjgP2J_djOn_QOkaKBlhnRhSO5iQ/edit?usp=drive_link
+  - text: Assignment Turn In
+    href: https://docs.google.com/forms/d/e/1FAIpQLSdA2mkUojv-37gaK0ON-B8B2a7y5cxnMUJRhaqX747QtbMxhA/viewform?usp=header
+  right:
+    - text: BIOL 322 Spring 2026 Syllabus PDF
+      href: articles/sheets/sci_articles/biol322-syllabus-Roles-spring2026.pdf

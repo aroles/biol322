@@ -1,0 +1,10 @@
+Package: biol322
+Type: Package
+Title: BIOL 322 - Genetics of Populations
+Version: 1.0
+Authors@R: person("Prof. A. Roles", email = "aroles@oberlin.edu", role = c("aut", "cre"))
+Description: The course resources for BIOL 322
+License: Creative Commons 1.0 Universal
+Encoding: UTF-8
+LazyData: true
+URL: https://aroles.github.io/biol322/

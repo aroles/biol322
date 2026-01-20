@@ -1,0 +1,25 @@
+---
+title: "BIOL 322 Lab Exercises"
+date: "Spring 2026"
+output: 
+  html_document:
+    toc: False
+  pdf_document:
+    toc: TRUE
+    toc_depth: 3
+pkgdown:
+  as_is: true
+---
+
+Below, click the link for the relevant week's handout. You can either view it via your web browser or save a copy by printing to pdf.
+
+For lab exercises, you will need to use the free modeling software program [Vensim PLE](https://vensim.com/free-downloads/). You can download and install it to your personal laptop or you can use the computers in A262.
+
+
+* [Lab 1. Building Population Growth Models in Vensim PLE](articles/biol322-lab1.html)
+* [Lab 2. Simulating Hardy-Weinberg Equilibrium](articles/biol322-lab2.html)
+* [Lab 3. Genetic Drift](articles/biol322-lab3.html)
+* [Lab 4. Adding Selection to the Drift Model](articles/biol322-lab4.html)
+* [Lab 5. Adding Gene Flow to the Selection-Drift Model](articles/biol322-lab5.html)
+* [Lab 6. Gametic Disequilibrium](articles/biol322-lab6.html)
+* [Lab 7. Inbreeding](articles/biol322-lab7.html)
