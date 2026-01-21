@@ -1,0 +1,138 @@
+---
+title: "BIOL 322 Lab 4. Selection"
+author: "Angela J. Roles"
+date: "Spring 2026"
+output: 
+  html_document:
+    toc: True
+  pdf_document:
+    toc: TRUE
+    toc_depth: 3
+pkgdown:
+  as_is: true
+---
+
+When you have completed the exercise below, submit your model and your lab write-up via the Google Drive Form ([https://forms.gle/E3QLACX1aA2Q6ist5](https://forms.gle/E3QLACX1aA2Q6ist5)). Responses due by the following week's lab period.
+
+During lab, we will work in groups. Here are the groups assigned for today's exercise:
+
+| Group | Partner 1 | Partner 2 |
+|:---|:---|:---|
+| 1 | Emily F. | Andrea |
+| 2 | Amelia | Sophie |
+| 3 | Hunter | Emily S. |
+| 4 | Ricarda | Calvin |
+| 5 | Diane | Merry |
+| 6 | Kalyan | Revanth |
+| 7 | Julia | Vaughn |
+| 8 | Isabel | My |
+| 9 | Shaina | Elise |
+| 10 | Aidan | Martha (absent) |
+
+---
+
+## Overview {#overview}
+
+Last week, we built a model incorporating genetic drift. This week, we'll incorporate selection too! To do this, we'll start with our drift model and apply selection to the survival of zygotes to adulthood:
+
+```{r, echo=FALSE, fig.cap="Image of the life cycle showing selection occurring during the maturation of juveniles into adults"}
+knitr::include_graphics("../man/figures/selectflow.png")
+
+```
+
+Remember that **selection occurs when genotypes differ in their fitness**. We will add relative fitness terms for each genotype to determine how many new zygotes are created each generation.
+
+For reference, here's an image of the completed model:
+
+```{r, echo=FALSE, fig.cap="Image of the completed model with selection and drift"}
+knitr::include_graphics("../man/figures/selectionmodel.png")
+
+```
+
+---
+
+## Add Selection to the Drift Model {#add_selection}
+
+Open your drift model from last week and save it as `selection.mdl`.
+
+### Genotype fitness and mean population fitness
+
+Create the following four variables and place arrows as indicated:
+
+| Variable Name | Description | Arrow pointing to | Arrow arriving from |
+| --- | --- | --- | --- |
+| **wA1A1** | fitness of genotype A1A1 | deltaA1A1; wmean | none |
+| **wA1A2** | fitness of genotype A1A2 | deltaA1A2; wmean | none |
+| **wA2A2** | fitness of genotype A2A2 | deltaA2A2; wmean | none |
+| **wmean** | population mean fitness | deltaA1A1; deltaA1A2; deltaA2A2 | wA1A1; wA1A2; wA2A2; p adj |
+
+Adjust each fitness variable as follows:
+
+| Variable Name | Equation | Min | Max | Incr |
+| --- | --- | --- | --- | --- |
+| **wA1A1** | 1 | 0 | 1 | 0.01 |
+| **wA1A2** | 1 | 0 | 1 | 0.01 |
+| **wA2A2** | 1 | 0 | 1 | 0.01 |
+
+Set the equation for **wmean** to:
+`wmean = (wA1A1*p adj*p adj) + (wA1A2*2*p adj*(1-p adj) ) + (wA2A2*(1-p adj)*(1-p adj) )`
+
+### Adjusting flows
+
+Update the flows to include selection:
+
+* `deltaA1A1 = (N * p adj * p adj * wA1A1 / wmean) - genoA1A1`
+* `deltaA1A2 = (N * 2 * p adj * (1 - p adj) * wA1A2 / wmean) - genoA1A2`
+* `deltaA2A2 = (N * (1 - p adj) * (1 - p adj) * wA2A2 / wmean) - genoA2A2`
+
+---
+
+## Lab Write-Up {#assignment}
+
+### Selection Reference Table
+
+| Type of Selection | Highest fitness | Inheritance pattern | wA1A1 | wA1A2 | wA2A2 |
+| --- | --- | --- | --- | --- | --- |
+| None | None / All | NA | 1 | 1 | 1 |
+| Directional | A1A1 | A1 dominant | 1 | 1 | 0.6 |
+| Het. advantage | A1A2 | overdominance | 0.7 | 1 | 0.8 |
+| Directional | A1A1 | A1 recessive | 1 | 0.95 | 0.95 |
+| Directional | A1A1 | codominance | 1 | 0.9 | 0.8 |
+| Het. disadvantage | A1A1 or A2A2 | underdominance | 0.9 | 0.7 | 1 |
+
+### Questions
+
+1. **Explore selection and inheritance (No drift).** Run these scenarios and summarize your observations:
+
+| Trial | Type | p0 | wA1A1 | wA1A2 | wA2A2 | N | Time | Drift |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1a | Directional | 0.9 | 0.7 | 1 | 1 | 500 | 200 | 0 |
+| 1b | Het. advantage | 0.1 | 0.7 | 1 | 0.6 | 500 | 200 | 0 |
+| 1c | Directional | 0.9 | 0.95 | 0.95 | 1 | 500 | 200 | 0 |
+| 1d | Directional | 0.9 | 0.7 | 0.85 | 1 | 500 | 200 | 0 |
+| 1e | Het. disadvantage | 0.3 | 0.9 | 0.7 | 1 | 500 | 200 | 0 |
+
+2. **Effect of initial allele frequency.** Compare outcomes for common vs. rare favored alleles.
+
+| Trial | Favored | p0 | wA1A1 | wA1A2 | wA2A2 | N | Time | Drift |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2a | A1A1 (common) | 0.35 | 1 | 0.95 | 0.9 | 500 | 250 | 0 |
+| 2b | A1A1 (less common) | 0.1 | 1 | 0.95 | 0.9 | 500 | 250 | 0 |
+| 2c | A1A1 (rare) | 0.01 | 1 | 0.95 | 0.9 | 500 | 250 | 0 |
+
+3. **Interaction of selection and drift.** Run each parameter set 1 time without drift and 10 times with drift.
+
+| Description | Trial | <i>N~e~s</i> | wA1A1 | wA1A2 | wA2A2 | p0 | N | Time | Drift |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| **Rare, s=0.1** | 3a | 100 | 1 | 0.95 | 0.9 | 0.01 | 1000 | 200 | 1-10 |
+|  | 3b | 10 | 1 | 0.95 | 0.9 | 0.01 | 100 | 200 | 1-10 |
+|  | 3c | 1 | 1 | 0.95 | 0.9 | 0.01 | 10 | 200 | 1-10 |
+| **Common, s=0.1** | 3d | 100 | 1 | 0.95 | 0.9 | 0.5 | 1000 | 200 | 1-10 |
+|  | 3e | 10 | 1 | 0.95 | 0.9 | 0.5 | 100 | 200 | 1-10 |
+|  | 3f | 1 | 1 | 0.95 | 0.9 | 0.5 | 10 | 200 | 1-10 |
+| **Rare, s=0.4** | 3g | 4 | 1 | 0.8 | 0.6 | 0.1 | 10 | 200 | 1-10 |
+|  | 3h | 40 | 1 | 0.8 | 0.6 | 0.1 | 100 | 200 | 1-10 |
+
+4. **Reflection.** How has this model deepened your understanding of these concepts?
+
+**Submit your model and responses via the [Google Drive Form](https://forms.gle/E3QLACX1aA2Q6ist5).**

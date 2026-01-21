@@ -14,29 +14,20 @@ li:last-child {
   margin-bottom: 0;
 }
 
-/* Target the paragraph that contains the image */
-.contents p:has(img) {
-  margin-bottom: 50px !important;
-}
-
-/* Target the image itself just in case */
-.contents img {
-  margin-bottom: 40px !important;
+/* Target the image with our custom class */
+img.spaced-image {
+  margin-bottom: 20px !important;
   display: block;
 }
 
-/* Target the figure container if pkgdown generates it */
-.contents figure, .contents .figure {
-  margin-bottom: 50px !important;
-  margin-top: 20px;
-}
-
-/* Target the caption specifically to push the following text down */
-.contents figcaption, .contents .caption {
-  margin-bottom: 40px !important;
+/* Target the caption that pkgdown generates for this image */
+.figure .caption, figcaption {
+  margin-bottom: 20px !important;
   display: block;
+  font-style: italic;
 }
 
-body {
-  border-top: 10px solid red !important;
+/* Target the figure container itself */
+.figure {
+  margin-bottom: 20px !important;
 }

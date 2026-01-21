@@ -1,5 +1,6 @@
 ---
 title: "BIOL 322 Lab 1.  Building Population Growth Models in Vensim PLE"
+author: "Angela J. Roles"
 date: "Spring 2026"
 output: 
   html_document:
@@ -26,7 +27,10 @@ IMPORTANT NOTE: These instructions are written for version 9.3.5 of VensimPLE, t
 
 Vensim PLE is a modeling application that allows the construction of a variety of modeling paradigms and the capability of graphical output. On the machine of your choice (your own or the computer lab machine), open the Vensim PLE application. When the program starts up, you should see a window that looks like the image below, without blank space instead of the model in the middle! You may want to download and open this image so you can zoom in to read the labels -- the pink labels are the ones we want to pay attention to. The whole window is the Workbench, with the white space in the middle being where we will construct our models, that's the Build Window.
 
-![View of the opening window of Vensim](../man/figures/vensim-workspace.png)
+```{r, echo=FALSE, fig.cap="View of the opening window of Vensim", out.extra='class="spaced-image"'}
+knitr::include_graphics("../man/figures/vensim-workspace.png")
+```
+
 
 <ul style="font-weight:normal;" role="list">
 <li>At the top we have the standard Menu Bar, with the File, Edit, etc menus.</li>

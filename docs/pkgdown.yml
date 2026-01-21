@@ -4,8 +4,9 @@ pkgdown_sha: ~
 articles:
   biol322-lab1: biol322-lab1.html
   biol322-lab2: biol322-lab2.html
+  biol322-lab3: biol322-lab3.html
   lab-exercises-main: lab-exercises-main.html
-last_built: 2026-01-20T20:14Z
+last_built: 2026-01-21T17:19Z
 urls:
   reference: https://aroles.github.io/biol322/reference
   article: https://aroles.github.io/biol322/articles

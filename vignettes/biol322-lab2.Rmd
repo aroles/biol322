@@ -1,5 +1,6 @@
 ---
 title: "BIOL 322 Lab 2. Simulating Hardy-Weinberg Equilibrium"
+author: "Angela J. Roles"
 date: "Spring 2026"
 output: 
   html_document:
@@ -29,10 +30,10 @@ During lab, we will work in groups. Here are the groups assigned for today's exe
 
 <p>Before starting the model, think about what we are trying to do. What happens in the HW model? For an example, consider a population of mussels that reproduce by [broadcast spawning](https://youtu.be/SZ56PCWpB6o): once a year, individuals release their gametes into the water column, where they meet up with other gametes at random and undergo syngamy to form a new zygote (see figure).</p>
 
+```{r, echo=FALSE, fig.cap="The life cycle of the New Zealand green-lipped mussel (<i>Perna canaliculus</i>, k&uuml;tai). As larvae, green-lipped mussels are free-swimming. They metamorphose and settle onto seaweed and subsequently onto solid surfaces.", out.extra='class="spaced-image"'}
+knitr::include_graphics("../man/figures/mussel-life-cycle.jpg")
+```
 
-<p>
-![Figure 1. The life cycle of the New Zealand green-lipped mussel (<i>Perna canaliculus</i>, k&uuml;tai). As larvae, green-lipped mussels are free-swimming. They metamorphose and settle onto seaweed and subsequently onto solid surfaces.](../man/figures/mussel-life-cycle.jpg)
-</p>
 
 <p>In nature, many mussels are iteroparous (spawning more than one reproductive episode in their lifetimes) but for the sake of our simple model, we're going to assume they are semelparous (they reproduce once and then die) Each individual in the population produces gametes (via meiosis), spews them out into the water column, and then dies (so we are modeling them as annuals, discrete non-overlapping generations). The gametes fuse into diploid zygotes (probabilistically, at random), spend some time as planktonic larva, and then settle on a hard surface where they grow into adult mussels. The next year, those adult mussels spew their gametes into the water and then die, etc (the circle of life...).</p>
 
@@ -47,11 +48,9 @@ During lab, we will work in groups. Here are the groups assigned for today's exe
 
 <p>For your reference, we're going to create 1 stock for each genotype. Each stock will have a flow to allow us to add new individuals in the next generaton. Each stock will also be set up to be Discrete, emptying out at the end of a time step (b/c all adults die after reproducing). We will also set up variables to keep track of total population size, observed genotype frequencies, allele frequencies, and expected genotype frequencies. Finally, we will want one graph to show geno- type frequencies and one to show allele frequencies. Below is an image of the completed model for you to reference.</p>
 
-<p>
-![Image of the completed Hardy-Weinberg model](../man/figures/hwmodel.png)
-</p>
-
-
+```{r, echo=FALSE, fig.cap="Image of the completed Hardy-Weinberg model.", out.extra='class="spaced-image"'}
+knitr::include_graphics("../man/figures/hwmodel.png")
+```
 
 1. Open a new model and input the following settings:
 <table>
