@@ -1,12 +1,16 @@
-pandoc: '3.4'
+pandoc: 3.6.3
 pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   biol322-lab1: biol322-lab1.html
   biol322-lab2: biol322-lab2.html
   biol322-lab3: biol322-lab3.html
+  biol322-lab4: biol322-lab4.html
+  biol322-lab5: biol322-lab5.html
+  biol322-lab6: biol322-lab6.html
+  biol322-lab7: biol322-lab7.html
   lab-exercises-main: lab-exercises-main.html
-last_built: 2026-01-21T17:19Z
+last_built: 2026-01-21T18:44Z
 urls:
   reference: https://aroles.github.io/biol322/reference
   article: https://aroles.github.io/biol322/articles

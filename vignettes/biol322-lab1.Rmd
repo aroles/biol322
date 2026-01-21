@@ -1,6 +1,6 @@
 ---
 title: "BIOL 322 Lab 1.  Building Population Growth Models in Vensim PLE"
-author: "Angela J. Roles"
+author: "Angela Roles"
 date: "Spring 2026"
 output: 
   html_document:

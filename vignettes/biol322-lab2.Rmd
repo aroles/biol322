@@ -1,6 +1,6 @@
 ---
 title: "BIOL 322 Lab 2. Simulating Hardy-Weinberg Equilibrium"
-author: "Angela J. Roles"
+author: "Angela Roles"
 date: "Spring 2026"
 output: 
   html_document:

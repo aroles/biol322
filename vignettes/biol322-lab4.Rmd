@@ -1,0 +1,141 @@
+---
+title: "BIOL 322 Lab 4. Selection"
+author: "Angela Roles"
+date: "Spring 2026"
+output: 
+  html_document:
+    toc: True
+  pdf_document:
+    toc: TRUE
+    toc_depth: 3
+pkgdown:
+  as_is: true
+---
+
+When you have completed the exercise below, submit your model and your lab write-up via the [Google Drive Form](https://forms.gle/E3QLACX1aA2Q6ist5). Responses due by the following week's lab period.
+
+During lab, we will work in groups. Here are the groups assigned for today's exercise:
+
+| Group Member 1 | Group Member 2 |
+|:---|:---|
+| Emily F. and Andrea | Amelia and Sophie |
+| Hunter and Emily S. | Ricarda and Calvin |
+| Diane and Merry | Kalyan and Revanth |
+| Julia and Vaughn | Isabel and My |
+| Shaina and Elise | Aidan and Martha (both absent) |
+
+---
+
+## Overview {#overview}
+
+Last week, we built a model incorporating genetic drift. This week, we'll incorporate selection too! To do this, we'll start with our drift model, saving it with a new name. Since our drift model included a toggle for drift, this will make it easy for us to run all possible combinations: drift only; selection only; both drift and selection.
+
+Recall the order of events during the lifecycle of the organism. We added drift by adjusting the allele frequencies (the gene pool; we called the parameter '$p_{adj}$') in the step where we formed newborn zygotes from gametes. We're going to apply selection in the next step: having determined which new zygotes are made, we apply selection to the survival of those zygotes to adulthood:
+
+```{r, echo=FALSE, fig.cap="Image of the life cycle showing selection occurring during the maturation of juveniles into adults"}
+knitr::include_graphics("../man/figures/selectflow.png")
+
+```
+
+Selection occurs when genotypes differ (on average) in their survival and/or reproduction—their **fitness**. We will add relative fitness terms for each genotype to our flow equations to determine how many new zygotes are created each generation.
+
+For reference, here's an image of the completed model:
+
+```{r, echo=FALSE, fig.cap="Image of the completed model with selection and drift"}
+knitr::include_graphics("../man/figures/selectionmodel.png")
+
+```
+
+---
+
+## Add Selection to the Drift Model {#add_selection}
+
+Open your drift model from last week and save it as `selection.mdl`.
+
+### Genotype fitness and mean population fitness
+
+Create the following four variables and place arrows as indicated:
+
+| Variable Name | Description | Arrow pointing to | Arrow arriving from |
+| --- | --- | --- | --- |
+| **** | fitness of genotype  | deltaA1A1; wmean | none |
+| **** | fitness of genotype  | deltaA1A2; wmean | none |
+| **** | fitness of genotype  | deltaA2A2; wmean | none |
+| **** | mean population fitness | deltaA1A1; deltaA1A2; deltaA2A2 | ; ; ;  |
+
+Set the equations for each fitness variable:
+
+| Variable Name | Equation | Min | Max | Incr |
+| --- | --- | --- | --- | --- |
+| **** | 1 | 0 | 1 | 0.01 |
+| **** | 1 | 0 | 1 | 0.01 |
+| **** | 1 | 0 | 1 | 0.01 |
+
+Set the equation for **** to:
+`wmean = (wA1A1*p adj*p adj) + (wA1A2*2*p adj*(1-p adj) ) + (wA2A2*(1-p adj)*(1-p adj) )`
+
+### Adjusting flows
+
+Update your flows so that selection occurs on newly formed zygotes:
+
+* `deltaA1A1 = (N * p adj * p adj * wA1A1 / wmean) - genoA1A1`
+* `deltaA1A2 = (N * 2 * p adj * (1 - p adj) * wA1A2 / wmean) - genoA1A2`
+* `deltaA2A2 = (N * (1 - p adj) * (1 - p adj) * wA2A2 / wmean) - genoA2A2`
+
+---
+
+## Lab Write-Up {#assignment}
+
+### Selection Types and Inheritance Patterns
+
+| Type of Selection | Highest fitness | Inheritance pattern |  |  |  |
+| --- | --- | --- | --- | --- | --- |
+| None | None / All | NA | 1 | 1 | 1 |
+| Directional |  |  dominant | 1 | 1 | 0.6 |
+| Het. advantage |  | overdominance | 0.7 | 1 | 0.8 |
+| Directional |  |  recessive | 1 | 0.95 | 0.95 |
+| Directional |  | codominance | 1 | 0.9 | 0.8 |
+| Het. disadvantage |  or  | underdominance | 0.9 | 0.7 | 1 |
+
+### Questions
+
+1. **Explore selection and inheritance patterns (No drift).** Run the scenarios below and summarize how selection alters allele and genotype frequencies.
+
+| Trial | Type |  |  |  |  | N | Time | Drift |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1a | Directional | 0.9 | 0.7 | 1 | 1 | 500 | 200 | 0 |
+| 1b | Het. advantage | 0.1 | 0.7 | 1 | 0.6 | 500 | 200 | 0 |
+| 1c | Directional | 0.9 | 0.95 | 0.95 | 1 | 500 | 200 | 0 |
+| 1d | Directional | 0.9 | 0.7 | 0.85 | 1 | 500 | 200 | 0 |
+| 1e | Het. disadvantage | 0.3 | 0.9 | 0.7 | 1 | 500 | 200 | 0 |
+
+2. **Effect of initial allele frequency.** Compare outcomes for common vs. rare favored alleles.
+
+| Trial | Favored |  |  |  |  | N | Time | Drift |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2a |  (common) | 0.35 | 1 | 0.95 | 0.9 | 500 | 250 | 0 |
+| 2b |  (less common) | 0.1 | 1 | 0.95 | 0.9 | 500 | 250 | 0 |
+| 2c |  (rare) | 0.01 | 1 | 0.95 | 0.9 | 500 | 250 | 0 |
+
+3. **Examine the interaction of selection and drift occurring simultaneously.** For each set, run 1 time without drift and 10 times with drift.
+
+| Description | Trial |  |  |  |  |  | N | Time | Drift |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| **Rare favored allele, s=0.1** | 3a | 100 | 1 | 0.95 | 0.9 | 0.01 | 1000 | 200 | 1-10 |
+|  | 3b | 10 | 1 | 0.95 | 0.9 | 0.01 | 100 | 200 | 1-10 |
+|  | 3c | 1 | 1 | 0.95 | 0.9 | 0.01 | 10 | 200 | 1-10 |
+| **Common favored allele, s=0.1** | 3d | 100 | 1 | 0.95 | 0.9 | 0.5 | 1000 | 200 | 1-10 |
+|  | 3e | 10 | 1 | 0.95 | 0.9 | 0.5 | 100 | 200 | 1-10 |
+|  | 3f | 1 | 1 | 0.95 | 0.9 | 0.5 | 10 | 200 | 1-10 |
+| **Rare favored allele, s=0.4** | 3g | 4 | 1 | 0.8 | 0.6 | 0.1 | 10 | 200 | 1-10 |
+|  | 3h | 40 | 1 | 0.8 | 0.6 | 0.1 | 100 | 200 | 1-10 |
+
+**Write a summary of your observations of the interaction between drift and selection. What factors are most important in influencing the equilibrium outcome?**
+
+4. **Reflection.** Has working with the model deepened your understanding?
+
+**Submit your model and responses via the [Google Drive Form](https://forms.gle/E3QLACX1aA2Q6ist5).**
+
+```
+
+```

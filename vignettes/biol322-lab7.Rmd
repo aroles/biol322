@@ -1,0 +1,90 @@
+---
+title: "BIOL 322 Lab 7. Inbreeding"
+author: "Angela Roles"
+date: "Spring 2026"
+output: 
+  html_document:
+    toc: True
+  pdf_document:
+    toc: TRUE
+    toc_depth: 3
+pkgdown:
+  as_is: true
+---
+
+When you have completed the exercise below, submit your model and your lab write-up via the [Google Drive Form](https://forms.gle/E3QLACX1aA2Q6ist5). Responses due by the following week's lab period.
+
+---
+
+## Overview {#overview}
+
+Up to this point, we have assumed that our populations are mating at random. This week, we will relax that assumption to investigate **Inbreeding**. Inbreeding occurs when individuals are more likely to mate with relatives than expected by chance. 
+
+While there are many forms of inbreeding, we will focus on **selfing** (self-fertilization) as our primary mechanism. We will track how the frequency of heterozygotes ($A_1A_2$) changes relative to homozygotes over time, and how this relates to the inbreeding coefficient ($F$).
+
+---
+
+## Build the Inbreeding Model {#buildmodel}
+
+To build this model, we will use a single-locus framework but adjust how genotypes are formed each generation based on a specific "selfing rate."
+
+### Initial Variables
+
+Create the following variables to define your starting population and mating system:
+
+| Variable | Description | Equation | Min | Max | Incr |
+|:---|:---|:---|:---|:---|:---|
+| **self rate** | proportion of population that self-fertilizes | 0 | 0 | 1 | 0.01 |
+| **initial freq A1A1** | starting frequency of $A_1A_1$ | 0.25 | 0 | 1 | 0.01 |
+| **initial freq A1A2** | starting frequency of $A_1A_2$ | 0.5 | 0 | 1 | 0.01 |
+| **initial freq A2A2** | starting frequency of $A_2A_2$ | 0.25 | 0 | 1 | 0.01 |
+
+### Genotype Equations
+
+In a selfing model, the offspring of a heterozygote ($A_1A_2$) are 25% $A_1A_1$, 50% $A_1A_2$, and 25% $A_2A_2$. We must account for this shift in genotype frequencies:
+
+| Genotype | New Frequency Equation |
+|:---|:---|
+| **A1A1 next** | `(1 - self rate) * (p^2) + self rate * (freqA1A1 + 0.25 * freqA1A2)` |
+| **A1A2 next** | `(1 - self rate) * (2 * p * q) + self rate * (0.5 * freqA1A2)` |
+| **A2A2 next** | `(1 - self rate) * (q^2) + self rate * (freqA2A2 + 0.25 * freqA1A2)` |
+
+### Tracking Inbreeding ($F$)
+
+Create a variable for the inbreeding coefficient to monitor the deviation from Hardy-Weinberg expectations:
+
+* **F**: `1 - (observed_H / expected_H)`
+  * Where `observed_H` is the current frequency of $A_1A_2$.
+  * Where `expected_H` is $2pq$.
+
+---
+
+## Lab Write-Up {#submit}
+
+### Questions
+
+1. **Selfing and Genotype Frequencies.** Run the model with a selfing rate of 0.5 and 1.0. 
+    * Does the allele frequency ($p$) change over time?
+    * What happens to the frequency of heterozygotes? 
+    * What is the equilibrium value of $F$ for each rate?
+
+2. **Test of Equilibrium.** Use the trials in the table below to observe how different starting frequencies impact the speed at which the population reaches its inbreeding equilibrium.
+
+| Trial | self rate | initial freq $A_1A_1$ | initial freq $A_1A_2$ | initial freq $A_2A_2$ | Description |
+|:---|:---|:---|:---|:---|:---|
+| 1a | 0.5 | 0.25 | 0.5 | 0.25 | 50% selfing, HW start |
+| 1b | 0.5 | 0.45 | 0.1 | 0.45 | 50% selfing, low Het start |
+| 1c | 0.8 | 0.25 | 0.5 | 0.25 | 80% selfing, HW start |
+
+3. **Population Fragmentation Scenario.**
+
+
+| Trial | self rate | initial freq $A_1A_1$ | initial freq $A_1A_2$ | initial freq $A_2A_2$ | Description |
+|:---|:---|:---|:---|:---|:---|
+| 2a | 0.8 | 0.02 | 0.85 | 0.13 | 80% selfing, $p=0.445$ |
+
+**Describe what happened in this run (Trial 2a). This represents an extreme case where a population is fragmented by habitat loss, leading to a sudden increase in inbreeding.**
+
+4. **Reflection.** Summarize the patterns demonstrated in this model. How do these results influence your thinking about the consequences of inbreeding in conservation biology?
+
+**Remember to submit your model and responses via the [Google Drive Form](https://forms.gle/E3QLACX1aA2Q6ist5).**

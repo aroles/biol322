@@ -1,0 +1,105 @@
+---
+title: "BIOL 322 Lab 6. Gametic Disequilibrium"
+author: "Angela Roles"
+date: "Spring 2026"
+output: 
+  html_document:
+    toc: True
+  pdf_document:
+    toc: TRUE
+    toc_depth: 3
+pkgdown:
+  as_is: true
+---
+
+When you have completed the exercise below, submit your model and your lab write-up via the [Google Drive Form](https://forms.gle/E3QLACX1aA2Q6ist5). Responses due by the following week's lab period.
+
+During lab, we will work in groups. Here are the groups assigned for today's exercise:
+
+| Group Member 1 | Group Member 2 |
+|:---|:---|
+| Emily F. and Andrea | Amelia and Sophie |
+| Hunter and Emily S. | Ricarda and Calvin |
+| Diane and Merry | Kalyan and Revanth |
+| Julia and Vaughn | Isabel and My |
+| Shaina and Elise | Aidan and Martha |
+
+---
+
+## Overview {#overview}
+
+Up to this point, we have been working with a single locus. This week, we'll build a model with two loci ($A$ and $B$). This will allow us to investigate **gametic disequilibrium ($D$)**, which is the non-random association of alleles at different loci.
+
+In a two-locus system, we track four possible gametes:
+* $G_1$: $A_1B_1$
+* $G_2$: $A_1B_2$
+* $G_3$: $A_2B_1$
+* $G_4$: $A_2B_2$
+
+The frequency of these gametes in the population determines the genotype frequencies and the level of disequilibrium.
+
+---
+
+## Build the two-locus model {#build}
+
+To build this model, we need to define the initial allele frequencies for both loci, the initial level of disequilibrium, and the recombination rate ($r$).
+
+### Initial Variables
+
+Create the following variables to set up your starting conditions:
+
+| Variable | Description | Equation | Min | Max | Incr |
+|:---|:---|:---|:---|:---|:---|
+| **pAinit** | initial frequency of allele $A_1$ | 0.5 | 0 | 1 | 0.01 |
+| **pBinit** | initial frequency of allele $B_1$ | 0.5 | 0 | 1 | 0.01 |
+| **r** | recombination rate | 0.5 | 0 | 0.5 | 0.01 |
+| **Dinitial** | initial gametic disequilibrium | 0 | -0.25 | 0.25 | 0.01 |
+
+### Gamete Frequencies and Selection
+
+The model tracks the frequencies of the four gametes over time. Use the following equations for your variables:
+
+| Variable | Equation |
+|:---|:---|
+| **G1** | `(pAinit * pBinit) + Dinitial` |
+| **G2** | `(pAinit * (1 - pBinit)) - Dinitial` |
+| **G3** | `((1 - pAinit) * pBinit) - Dinitial` |
+| **G4** | `((1 - pAinit) * (1 - pBinit)) + Dinitial` |
+| **wbar1** | `G1 * w11 + G2 * w12 + G3 * w13 + G4 * wHet` |
+| **wbar2** | `G1 * w12 + G2 * w22 + G3 * wHet + G4 * w24` |
+| **wbar3** | `G1 * w13 + G2 * wHet + G3 * w33 + G4 * w34` |
+| **wbar4** | `G1 * wHet + G2 * w24 + G3 * w34 + G4 * w44` |
+| **wmean** | `G1 * wbar1 + G2 * wbar2 + G3 * wbar3 + G4 * wbar4` |
+
+### Tracking Allele Frequencies and D
+
+Add these variables to monitor the state of the population:
+
+| Variable | Equation |
+|:---|:---|
+| **freq A1** | `G1 + G2` |
+| **freq B1** | `G1 + G3` |
+| **D** | `(G1 * G4) - (G2 * G3)` |
+| **Dmax** | `IF Dinitial = 0 THEN 0 ELSE MIN(pAinit * (1 - pBinit), (1 - pAinit) * pBinit)` |
+
+---
+
+## Test your model {#test}
+
+Run a baseline simulation with $r = 0.5$ and $D_{initial} = 0.25$. You should observe $D$ decaying over time toward zero. If your lines are not moving as expected, check your gamete equations and ensure $r$ is connected to the flows.
+
+---
+
+## Lab Write-Up {#submit}
+
+### Questions
+
+1.  **Decay of $D$ over time.** How does the recombination rate ($r$) influence the speed at which gametic disequilibrium disappears? Run simulations with $r = 0.5$, $r = 0.1$, and $r = 0.01$.
+
+2.  **Selection and $D$.** Can selection create or maintain gametic disequilibrium even when recombination is occurring? Set $r = 0.1$ and apply different fitness values to the double homozygotes.
+
+3.  **Hitchhiking.** Observe what happens to the frequency of allele $B_1$ when it is neutral but the $A$ locus is under strong selection and $D$ is high.
+
+4.  **Reflection.** How does the concept of linkage disequilibrium help us map genes or understand the history of a population?
+
+**Remember to submit your model and responses via the [Google Drive Form](https://forms.gle/E3QLACX1aA2Q6ist5).**
