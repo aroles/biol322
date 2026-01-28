@@ -14,6 +14,16 @@ pkgdown:
 
 When you have completed the exercise below, submit your model and your lab write-up via the [Google Drive Form](https://forms.gle/E3QLACX1aA2Q6ist5). Responses due by the following week's lab period.
 
+During lab, we will work in groups. Here are the groups assigned for today's exercise:
+
+* Bethany and Amanda
+* Jordyn and Chloe
+* Amy and Paige
+* Natalie and Skylar
+* Ella and Savannah
+* Clara and Arc
+* Miles and Emmy
+
 ---
 
 ## Overview {#overview}
