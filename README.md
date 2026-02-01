@@ -35,7 +35,7 @@ Email: <aroles@oberlin.edu>
 Cell: 443-695-1680
 
 ### Drop-In Student Hours
-MTW 2:00-3:30pm, or email for appointment. [Sign up for student hours here.](https://calendar.app.google/QpTarPNUDy71jZ948)
+Mon, Tue, Thu 2:00-3:30pm, or email for appointment. [Sign up for student hours here.](https://calendar.google.com/calendar/appointments/schedules/AcZssZ13c4kxrNqqz4TVPsSeRau7eRLLSLV9GoeCHlJX0ZvTNkbfOzvVkFwCi0GKK-kbi9ZRFFpTgg4o)
 
 Student Hours are times that I have set aside specifically to meet with students. I will be in my office and available – you can sign up for a slot on my gcal or just stop by and give the door a knock! You can drop in by yourself or bring friends; you may have specific questions or just want to say hi – any reason is good enough. If you aren't available during these intervals, I'm happy to find another time that works -- just email me with some times you are available. 
 
@@ -114,6 +114,7 @@ Angie is available for individual consultation during student hours or by appoin
 In this course, we use contract grading, a method of assessment in which you write a contract laying out the work you will complete (to a satisfactory level) in order to earn the grade you desire. I will provide a template contract, requesting you to complete portions of it and you will submit it for my agreement by the end of the first week of class (Fri Feb 6).
 
 Your written contract will describe:
+
 * how completed work lines up with expectations for each grade,
 * due dates for work to be turned in,
 * the consequences for you if you do not meet the expectations you set.
