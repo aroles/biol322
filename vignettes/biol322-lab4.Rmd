@@ -16,8 +16,7 @@ When you have completed the exercise below, submit your model and your lab write
 
 During lab, we will work in groups. Here are the groups assigned for today's exercise:
 
-* Miles and Savannah
-* Charlie and Skylar
+* Miles, Charlie, and Savannah
 * Natalie and Paige
 * Ella and Amanda
 * Clara and Bethany
