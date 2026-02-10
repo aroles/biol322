@@ -206,33 +206,48 @@ knitr::include_graphics("../man/figures/hwmodel.png")
 
 8. Remember, to enter equations, click on the Equations icon and then click on the variable whose info you want to edit. In the box that pops up, you enter the correct information for that variable. We have a lot of variables so let's take this slowly.
 
-9. Let's start with the variables that we are just setting a value to initiate the model. For these, the equation is simple, it's just the starting value we are choosing to use. Use the following equations for these variables:
+9. Let's start with the variables that we are just setting a value to initiate the model. For these, the equation is simple, it's just the starting value we are choosing to use. Use the following equations for these variables. To set min, max, and increment, click on the Simulation Range tab in the Equation editor. Once you have entered a set of values you can choose from the existing set rather than retyping.
 
 <table>
   <tr>
   	<td><b>Variable</td>
   	<td><b>Parameter</td>
   	<td><b>Value</td>
+  	<td><b>Minimum</td>
+  	<td><b>Maximum</td>
+  	<td><b>Increment</td>
   	</tr>
 <tr>
   	<td>initial N</td>
   	<td>Equations</td>
   	<td>10000</td>
+  	<td>0</td>
+  	<td>50000</td>
+  	<td>1</td>
   </tr>
   <tr>
   	<td>initial freq A1A1</td>
   	<td>Equations</td>
   	<td>0.4</td>
+  	<td>0</td>
+  	<td>1</td>
+  	<td>0.01</td>
   </tr>
   <tr>
   	<td>initial freq A1A2</td>
   	<td>Equations</td>
   	<td>0.4</td>
+  	<td>0</td>
+  	<td>1</td>
+  	<td>0.01</td>
   </tr>
   <tr>
   	<td>initial freq A2A2</td>
   	<td>Equations</td>
   	<td>0.2</td>
+  	<td>0</td>
+  	<td>1</td>
+  	<td>0.01</td>
   </tr>
 </table><br>
 10. Next up, the 'total N' variable! You should be able to guess what the equation for this one will be... we want to know how many individuals of all genotypes are present so what should we add up? Discuss with your partner and enter your equation into the box for 'total N'. Click OK to save and close the popup box.
@@ -256,12 +271,14 @@ knitr::include_graphics("../man/figures/hwmodel.png")
     * Example: deltaA1A1 = (freqA1 * freqA1 * total N) - genotypeA1A1
     * Go ahead and put in the equations for the other delta variables.
 	
-16. Once you have finished entering equations, check to make sure they are correct (you may want to use the key at the end). Then we are ready to click Simulate to run the model. To get a graph, hold down Shift while you click on the things you want to show on one graph (in this case, the 3 observed genotype frequencies) and then click Graph. 
+16. Once you have finished entering equations, check to make sure they are correct (you may want to use the key at the end). Save your model and then click Simulate to run the model. It's ok to overwrite the current version. After simulation, to get a graph, hold down Shift while you click on the things you want to show on one graph (in this case, the 3 observed genotype frequencies) and then click Graph. 
     * What happened? Does anything change on the graphs? What did you expect to see? Consider your responses as you write up the lab exercise in the next section.
 
 	
 ## Lab Write-Up
-<p>To check our understanding of the HW model and what's going on, we should run the model under some different conditions and then evaluate what happens. Run the following scenarios of starting conditions and answer the questions below. Look at Lab 1 for instructions about using Simulation Control to test multiple conditions.
+<p>To check our understanding of the HW model and what's going on, we should run the model under some different conditions and then evaluate what happens. Run the following scenarios of starting conditions and answer the questions below. Look at Lab 1 for instructions about using Simulation Control to test multiple conditions. NOTE: On the lab computers Simulation Control is called Sim Setup, to the left of where it says Run.
+
+As a reminder, when you click on Simulation Control or Sim Setup, that will let you name a new run (representing a different set of starting conditions). Then you click on the variable values that you want to change, adjust them and then click Save Changes and Simulate. Those simulation outputs will then be saved with the name of the run so you can more easily refer back to them or graph their outputs.
 
 <table>
   <tr>
