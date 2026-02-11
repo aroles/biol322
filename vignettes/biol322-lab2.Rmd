@@ -252,7 +252,7 @@ knitr::include_graphics("../man/figures/hwmodel.png")
 </table><br>
 10. Next up, the 'total N' variable! You should be able to guess what the equation for this one will be... we want to know how many individuals of all genotypes are present so what should we add up? Discuss with your partner and enter your equation into the box for 'total N'. Click OK to save and close the popup box.
 
-11. Having set up 'total N' and the initial variables, we can enter the initial values for the genotypes. We already entered a value for the frequency of each genotype so to get how many individuals of each are present, we just need to multiply the initial frequency by the total N value. 
+11. Having set up 'total N' and the initial variables, we can enter the initial values for the genotypes. We already entered a value for the frequency of each genotype so to get how many individuals of each are present, we just need to multiply the initial frequency by the initial N value. 
     * Click on 'genotypeA1A1'. What should you enter for the initial value?
     * Make sure you do NOT change the equation entry for the genotypes, that is already set up correctly to be the value of the flow.
 	
