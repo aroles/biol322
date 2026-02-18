@@ -358,8 +358,8 @@ Below find the key to arrow placements for each variable.
   </tr>
   <tr>
   	<td>p</td>
-  	<td>freqA1A1; freqA1A2</td>
   	<td>p adj; driftSD</td>
+  	<td>freqA1A1; freqA1A2</td>
   </tr>
   <tr>
   	<td>driftSD </td>
@@ -368,8 +368,8 @@ Below find the key to arrow placements for each variable.
   </tr>
   <tr>
   	<td>toggledrift </td>
-  	<td>none </td>
   	<td>p adj; drift </td>
+  	<td>none </td>
   </tr>
   <tr>
   	<td>drift </td>
