@@ -210,8 +210,7 @@ Note that p0 and N are variables we will want to adjust later when we are invest
     * Let's make one more simulation with drift. Click on Simulation Control and name this one run2, in Comments: toggledrift = 2, and finally click on toggledrift and change the value to 2. Click Save Changes and then Simulate.<br>
 	
 16. Once you have created those variations, click Simulate on the horizontal menu bar, click on p, and then click Graph. A graph should appear that has a line for each value of toggledrift that you tested. What happened? How might we explain what's going on?<br>
-		
-		Note that for the drift model, we are primarily interested in what happens to the allele frequency, p, over time. So instead of graphing genotype frequencies, we want to graph allele frequency. We could also graph heterozygosity, as that's our common estimate of genetic variation.<br><br>
+Note that for the drift model, we are primarily interested in what happens to the allele frequency, p, over time. So instead of graphing genotype frequencies, we want to graph allele frequency. We could also graph heterozygosity, as that's our common estimate of genetic variation.<br><br>
 	<i>(Sidebar: you should see a flat line for the nodrift run and then two squiggly lines that are different from each other for run1 and run2.)</i>
 
 		
@@ -219,7 +218,6 @@ Note that p0 and N are variables we will want to adjust later when we are invest
 Now that you have created an awesome working drift model, let's see what happens with multiple runs and altering starting conditions. Remember that since drift is a stochastic process, we cannot predict the outcome of any particular run but we can see trends from multiple runs. Thus, we'll need to look at multiple runs of any conditions we are testing out to identify trends. Remember that the effect of drift depends on both initial allele frequencies and total population size (a larger population takes longer to reach equilibrium).
 
 For the questions below, you should pay attention to the following values for each run so that you can compare across different runs. Which variables change the outcome and in what ways? Does the time to fixation change? Does the size of change from one generation to the next change?
-	
     * population size 
     * length of run (how many time steps before p = 0 or 1; time to allele extinction or fixation)
     * where allele frequency started and where it ended up (graph p)
