@@ -18,6 +18,4 @@ articles_sheets <- file.path(here::here(), 'docs', 'articles', 'sheets')
 fs::dir_copy(base_sheets, articles_sheets)
 
 
-# Tell Gemini:
-# give the rmd header to use
-# tell it the file location for images is "../man/figures/filename"
+# Don't use Gemini for file conversion, it will remove and alter text in addition to adjusting the file format. It's a waste of time, you will have to redo it yourself.
