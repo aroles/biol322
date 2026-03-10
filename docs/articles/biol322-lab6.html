@@ -92,174 +92,997 @@ today’s exercise:</p>
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>Up to this point, we have been working with a single locus. This
-week, we’ll build a model with two loci (<span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>). This will allow us to investigate
-<strong>gametic disequilibrium (<span class="math inline">\(D\)</span>)</strong>, which is the non-random
-association of alleles at different loci.</p>
-<p>In a two-locus system, we track four possible gametes: * <span class="math inline">\(G_1\)</span>: <span class="math inline">\(A_1B_1\)</span> * <span class="math inline">\(G_2\)</span>: <span class="math inline">\(A_1B_2\)</span> * <span class="math inline">\(G_3\)</span>: <span class="math inline">\(A_2B_1\)</span> * <span class="math inline">\(G_4\)</span>: <span class="math inline">\(A_2B_2\)</span></p>
-<p>The frequency of these gametes in the population determines the
-genotype frequencies and the level of disequilibrium.</p>
+<p>
+Today we’ll build a two-locus model to allow us to explore the
+phenomenon of gametic disequilibrium, including how it is affected by
+physical linkage and by natural selection. Just like we did with drift,
+we’ll create a toggle to allow us to start out either in maximum
+Disequilibrium or not (that is, in equilibrium). Until now, we’ve
+tracked genotypes and also allele frequencies. However, the two-locus
+model has 9 possible genotypes so we are only going to track the four
+possible gamete types with our stocks. We will account for genotypes
+when modeling selection by specifying fitness values for each of the 9
+genotypes. The inclusion of a spinner for <i>r</i>, the rate of
+recombination, will allow us to explore the effects of physical linkage.
+These parameters will then let us see how it’s possible to have gametic
+disequilibrium even when the loci are not physically linked (<i>r</i> =
+0.5).
+</p>
+<p>
+Because we are tracking gametotypes rather than genotypes in this model,
+we’ll have to start from scratch, though you should notice similarities
+to the models we built in earlier lab exercises.
+</p>
+<p>
+Before we get started, let’s think about what it means for the
+population to be in maximum disequilibrium for the alleles at two loci
+(Alpha and Beta loci). We have two alleles for each locus with the
+following allele frequencies:
+</p>
+<style type="text/css">
+td
+{
+    padding:5px 8px 0px 10px;
+    border: 1px solid black;
+}
+</style>
+<table class="table">
+<tr>
+<td style="width:50%">
+<b>Locus Alpha, alleles A and a
+</b>
+</td>
+<td>
+<b>Locus Beta, alleles B and b
+</b>
+</td>
+</tr>
+<tr>
+<td>
+freq A = frequency of the A allele
+</td>
+<td>
+freq B = frequency of the B allele
+</td>
+</tr>
+<tr>
+<td>
+freq a = frequency of the a allele
+</td>
+<td>
+freq b = frequency of the b allele
+</td>
+</tr>
+</table>
+<p><br></p>
+<p>
+Now, if we assume that loci are independently assorting, then we know
+the probability of having each combination of alleles in a gamete – it’s
+just the product of the two allele frequencies.
+</p>
+<p>
+G1 = frequency of the AB gamete = freq A * freq B<br> G2 = frequency of
+the Ab gamete = freq A * freq b<br> G3 = frequency of the aB gamete =
+freq a * freq B<br> G4 = frequency of the ab gamete = freq a * freq b
+</p>
+<p>
+Note that Vensim will not let us name the variables G<sub>AB</sub>,
+G<sub>Ab</sub>, etc because it does not recognize capitalization.
+However, you can name them something like G1AB, G2Ab and it will retain
+the capitalization while being able to tell them apart.
+</p>
+<p>
+If we imagine a population where freq A = 0.5 and freq B = 0.5, then we
+expect G1 = 0.5*0.5 = 0.25. And we’d also end up with 0.25 for the
+frequencies of G2, G3, and G4. That would be our prediction if the Alpha
+and Beta loci assort independently.
+</p>
+<p>
+But now imagine that when we look at gametes, we observe that what we
+have is:
+</p>
+<p>
+G1 = AB gamete = 0.5 <br> G2 = Ab gamete = 0 <br> G3 = aB gamete = 0
+<br> G4 = ab gamete = 0.5
+</p>
+<p>
+We still have all the allele frequencies equal to 0.5 BUT the way
+alleles are paired in gametes is not random - we only get AB and ab.
+This would be maximum disequilibrium. The actual maximum disequilibrium
+values depend on the allele frequencies since you can’t have more AB
+gametes than you have A alleles, for example. Below, I give you the
+equations that will help us figure out the maximum for whatever starting
+conditions we choose.
+</p>
+<p>
+In our model, we will set it up so we can choose to start with maximum
+disequilibrium OR start in gametic equilibrium.
+</p>
+<p>
+Here’s a reference image of the completed model:
+</p>
+<p><img src="../reference/figures/lab6disequilibrium.png" alt="Image of the completed model for gametic disequilibrium"></p>
 <hr>
 </div>
 <div class="section level2">
 <h2 id="build">Build the two-locus model<a class="anchor" aria-label="anchor" href="#build"></a>
 </h2>
-<p>To build this model, we need to define the initial allele frequencies
-for both loci, the initial level of disequilibrium, and the
-recombination rate (<span class="math inline">\(r\)</span>).</p>
-<div class="section level3">
-<h3 id="initial-variables">Initial Variables<a class="anchor" aria-label="anchor" href="#initial-variables"></a>
-</h3>
-<p>Create the following variables to set up your starting
-conditions:</p>
-<table style="width:100%;" class="table">
-<colgroup>
-<col width="16%">
-<col width="16%">
-<col width="16%">
-<col width="16%">
-<col width="16%">
-<col width="16%">
-</colgroup>
-<thead><tr class="header">
-<th align="left">Variable</th>
-<th align="left">Description</th>
-<th align="left">Equation</th>
-<th align="left">Min</th>
-<th align="left">Max</th>
-<th align="left">Incr</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="left"><strong>pAinit</strong></td>
-<td align="left">initial frequency of allele <span class="math inline">\(A_1\)</span>
+<ol style="list-style-type: decimal">
+<li><p>Open a new model in VensimPLE. Save the new model as
+“disequilibrium.mdl”. Remember to change the time step to Year instead
+of Month. You can set the Final Time to 50.</p></li>
+<li><p>For this model, we will be imagining two loci, the Alpha locus
+and the Beta locus, each with two alleles (A and a; B and b). Thus, we
+have diploid genotypes such as AABB, AaBB, aaBb, etc. And the possible
+gamete types are: AB, Ab, aB, ab.</p></li>
+<li><p>We need to create 4 stocks, one for each gamete type. Call them
+“G1” (AB), “G2” (Ab) “G3” (aB), and “G4” (ab), following the convention
+from above and because Vensim doesn’t differentiate upper and lower case
+letters.</p></li>
+<li><p>Next, create a flow for each stock, naming them “deltaG1”,
+“deltaG2”, “deltaG3”, “deltaG4”.</p></li>
+<li>
+<p>We need to specify initial values for the A and B alleles and
+also specify the recombination rate, r. So we need to create the
+variables: “pAinit”, “pBinit”, and “r”. Place them to the left of the
+flows.</p>
+<ul><li>Now, let’s set up the values of these three variables. These are
+ones that we’ll be changing when we test different conditions later, so
+we’ll set an initial value, the Min, Max, and Inc. Click on Equation and
+then click each variable and adjust settings as in the table.<br><table class="table">
+<tr>
+<td>
+<b>Variable</b>
 </td>
-<td align="left">0.5</td>
-<td align="left">0</td>
-<td align="left">1</td>
-<td align="left">0.01</td>
-</tr>
-<tr class="even">
-<td align="left"><strong>pBinit</strong></td>
-<td align="left">initial frequency of allele <span class="math inline">\(B_1\)</span>
+<td>
+<b>Equation</b>
 </td>
-<td align="left">0.5</td>
-<td align="left">0</td>
-<td align="left">1</td>
-<td align="left">0.01</td>
+<td>
+<b>Min</b>
+</td>
+<td>
+<b>Max</b>
+</td>
+<td>
+<b>Incr</b>
+</td>
+<td>
+<b>Description</b>
+</td>
 </tr>
-<tr class="odd">
-<td align="left"><strong>r</strong></td>
-<td align="left">recombination rate</td>
-<td align="left">0.5</td>
-<td align="left">0</td>
-<td align="left">0.5</td>
-<td align="left">0.01</td>
+<tr>
+<td>
+pAinit
+</td>
+<td>
+1.0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+0.001
+</td>
+<td>
+Initial frequency of the A allele
+</td>
 </tr>
-<tr class="even">
-<td align="left"><strong>Dinitial</strong></td>
-<td align="left">initial gametic disequilibrium</td>
-<td align="left">0</td>
-<td align="left">-0.25</td>
-<td align="left">0.25</td>
-<td align="left">0.01</td>
+<tr>
+<td>
+pBinit
+</td>
+<td>
+1.0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+0.001
+</td>
+<td>
+Initial frequency of the B allele
+</td>
 </tr>
-</tbody>
+<tr>
+<td>
+r
+</td>
+<td>
+0.5
+</td>
+<td>
+0
+</td>
+<td>
+0.5
+</td>
+<td>
+0.001
+</td>
+<td>
+Rate of recombination
+</td>
+</tr>
 </table>
-</div>
-<div class="section level3">
-<h3 id="gamete-frequencies-and-selection">Gamete Frequencies and Selection<a class="anchor" aria-label="anchor" href="#gamete-frequencies-and-selection"></a>
-</h3>
-<p>The model tracks the frequencies of the four gametes over time. Use
-the following equations for your variables:</p>
+</li></ul>
+<br>
+</li>
+
+<li><p>Let’s set up a couple of variables that let us turn
+disequilibrium on or off: Dinitial and Dmax. Dinitial will function like
+the toggledrift variable we used in an earlier model, it just determines
+whether we are starting with disequilibrium present (Dinitial=1) or not
+(Dinitial=0). We’ll change this between 0 and 1 when we are running
+simulations to see the effects of disequilibrium. Dmax is a variable
+that will figure out what’s the maximum amount we could be out of
+equilibrium when we allow Dinitial = 1? This variable will actually
+determine how gametes are arranged to create disequilibrium. Dmax will
+be an if-then-else statement since we’ll only want it to be greater than
+0 if Dinitial = 1.’</p></li>
+<li>
+<p>Go ahead and create these two variables (Dinitial and Dmax). Be
+sure to then place arrows from Dinitial, pAinit, and pBinit to Dmax.
+Create these variables and then use Equation to set them up as
+follows:</p>
 <table class="table">
-<thead><tr class="header">
-<th align="left">Variable</th>
-<th align="left">Equation</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="left"><strong>G1</strong></td>
-<td align="left"><code>(pAinit * pBinit) + Dinitial</code></td>
+<tr>
+<td>
+<p><b>Variable</b></p>
+</td>
+<td>
+<p><b>Equation</b></p>
+</td>
 </tr>
-<tr class="even">
-<td align="left"><strong>G2</strong></td>
-<td align="left"><code>(pAinit * (1 - pBinit)) - Dinitial</code></td>
+<tr>
+<td>
+<p>Dinitial</p>
+</td>
+<td>
+<p>0</p>
+</td>
 </tr>
-<tr class="odd">
-<td align="left"><strong>G3</strong></td>
-<td align="left"><code>((1 - pAinit) * pBinit) - Dinitial</code></td>
+<tr>
+<td>
+<p>Dmax</p>
+</td>
+<td>
+<p>IF THEN ELSE( Dinitial = 0 , 0 , MIN( pAinit<em>(1-pBinit) ,
+pBinit</em>(1-pAinit) ) )</p>
+</td>
 </tr>
-<tr class="even">
-<td align="left"><strong>G4</strong></td>
-<td align="left"><code>((1 - pAinit) * (1 - pBinit)) + Dinitial</code></td>
-</tr>
-<tr class="odd">
-<td align="left"><strong>wbar1</strong></td>
-<td align="left"><code>G1 * w11 + G2 * w12 + G3 * w13 + G4 * wHet</code></td>
-</tr>
-<tr class="even">
-<td align="left"><strong>wbar2</strong></td>
-<td align="left"><code>G1 * w12 + G2 * w22 + G3 * wHet + G4 * w24</code></td>
-</tr>
-<tr class="odd">
-<td align="left"><strong>wbar3</strong></td>
-<td align="left"><code>G1 * w13 + G2 * wHet + G3 * w33 + G4 * w34</code></td>
-</tr>
-<tr class="even">
-<td align="left"><strong>wbar4</strong></td>
-<td align="left"><code>G1 * wHet + G2 * w24 + G3 * w34 + G4 * w44</code></td>
-</tr>
-<tr class="odd">
-<td align="left"><strong>wmean</strong></td>
-<td align="left"><code>G1 * wbar1 + G2 * wbar2 + G3 * wbar3 + G4 * wbar4</code></td>
-</tr>
-</tbody>
 </table>
-</div>
-<div class="section level3">
-<h3 id="tracking-allele-frequencies-and-d">Tracking Allele Frequencies and D<a class="anchor" aria-label="anchor" href="#tracking-allele-frequencies-and-d"></a>
-</h3>
-<p>Add these variables to monitor the state of the population:</p>
+<p><br></p>
+</li>
+<li>
+<p>Now we are ready to set up the initial values for our gametotype
+stocks! Note that in previous models we’ve been tracking the number of
+individuals with our stocks but in this model we’re just going to store
+the frequency of each gamete type, not the total number – hence we will
+not have a variable for population size. Place arrows as indicated in
+the table below. Then, select the Equation tool and set the <b>Initial
+Value</b> (NOT the equation) of each stock as in the following table.
+Make sure you place the arrows BEFORE typing in the equations!</p>
 <table class="table">
-<colgroup>
-<col width="50%">
-<col width="50%">
-</colgroup>
-<thead><tr class="header">
-<th align="left">Variable</th>
-<th align="left">Equation</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="left"><strong>freq A1</strong></td>
-<td align="left"><code>G1 + G2</code></td>
+<tr>
+<td>
+<p><b>Variable</b></p>
+</td>
+<td>
+<p><b>Arrows from</b></p>
+</td>
+<td>
+<p><b>Initial Value</b></p>
+</td>
 </tr>
-<tr class="even">
-<td align="left"><strong>freq B1</strong></td>
-<td align="left"><code>G1 + G3</code></td>
+<tr>
+<td>
+<p>G1</p>
+</td>
+<td>
+<p>pAinit, pBinit, Dmax</p>
+</td>
+<td>
+<p>( (pAinit * pBinit) + Dmax)</p>
+</td>
 </tr>
-<tr class="odd">
-<td align="left"><strong>D</strong></td>
-<td align="left"><code>(G1 * G4) - (G2 * G3)</code></td>
+<tr>
+<td>
+<p>G2</p>
+</td>
+<td>
+<p>pAinit, pBinit, Dmax</p>
+</td>
+<td>
+<p>( (pAinit * (1 - pBinit) ) - Dmax)</p>
+</td>
 </tr>
-<tr class="even">
-<td align="left"><strong>Dmax</strong></td>
-<td align="left"><code>IF Dinitial = 0 THEN 0 ELSE MIN(pAinit * (1 - pBinit), (1 - pAinit) * pBinit)</code></td>
+<tr>
+<td>
+<p>G3</p>
+</td>
+<td>
+<p>pAinit, pBinit, Dmax</p>
+</td>
+<td>
+<p>( ( (1-pAinit) * pBinit) - Dmax)</p>
+</td>
 </tr>
-</tbody>
+<tr>
+<td>
+<p>G4</p>
+</td>
+<td>
+<p>pAinit, pBinit, Dmax</p>
+</td>
+<td>
+<p>( ( (1-pAinit) * (1-pBinit) ) + Dmax)</p>
+</td>
+</tr>
 </table>
+<p><br></p>
+</li>
+<li>
+<p>Next up, a few more variables that we usually want to keep track
+of - allele frequencies and then a variable for estimating
+disequilibrium at each time step (D). Make sure you put in the arrows
+before you set up the equations.</p>
+<table class="table">
+<tr>
+<td>
+<p><b>Variable</b></p>
+</td>
+<td style="width:40%">
+<p><b>Description</b></p>
+</td>
+<td>
+<p><b>Arrows from</b></p>
+</td>
+<td>
+<p><b>Equation</b></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>freq A1</p>
+</td>
+<td>
+<p>frequency of the A allele (or A1)</p>
+</td>
+<td>
+<p>G1, G2</p>
+</td>
+<td>
+<p>G1 + G2</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>freq a2</p>
+</td>
+<td>
+<p>frequency of the a allele (or a2)</p>
+</td>
+<td>
+<p>G3, G4</p>
+</td>
+<td>
+<p>G3 + G4</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>freq B1</p>
+</td>
+<td>
+<p>frequency of the B allele (or B1)</p>
+</td>
+<td>
+<p>G1, G3</p>
+</td>
+<td>
+<p>G1 + G3</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>freq b2</p>
+</td>
+<td>
+<p>frequency of the b allele (or b2)</p>
+</td>
+<td>
+<p>G2, G4</p>
+</td>
+<td>
+<p>G2 + G4</p>
+</td>
+</tr>
+</table>
+<p><br></p>
+</li>
+<li>
+<p>To keep track of the amount of disequilibrium at each time step,
+create the variable D. Because this is something we’ll want to graph,
+we’ll set a min and max in addition to the equation.</p>
+<table class="table">
+<tr>
+<td>
+<p><b>Variable</b></p>
+</td>
+<td>
+<p><b>Min</b></p>
+</td>
+<td>
+<p><b>Max<b></b></b></p>
+</td>
+<td>
+<p><b>Arrows from</b></p>
+</td>
+<td>
+<p><b>Equation</b></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>D</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0.5</p>
+</td>
+<td>
+<p>G1, G2, G3, G3</p>
+</td>
+<td>
+<p>(G1 * G4) - (G2 * G3)</p>
+</td>
+</tr>
+</table>
+<p><br></p>
+</li>
+<li>
+<p>Next up, we are going to add components that will let us cause
+selection to happen on genotypes in our simulation. Of course, we’ll
+start out with all genotypes having equal fitness as our null scenario
+but then later we can change the fitness values. Create the following
+fitnesses for each genotype with the settings as in the table.We’re
+going to name the variables for the fitnesses based on which gametes are
+involved (from 1 to 4). So for genotype AABB, that’s two G1 gametes,
+which we’ll encode as “w11”. Here is the list of fitness variables to
+make, place them left of the last column of variables you added. Use the
+Equation tool to set the min, max, incr, and equation.</p>
+<table class="table">
+<tr>
+<td>
+<p><b>Variable</b></p>
+</td>
+<td>
+<p><b>Description</b></p>
+</td>
+<td>
+<p><b>Equation</b></p>
+</td>
+<td>
+<p><b>Min</b></p>
+</td>
+<td>
+<p><b>Max</b></p>
+</td>
+<td>
+<p><b>Incr</b></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>w11</p>
+</td>
+<td>
+<p>fitness of AABB (the AB or G1/G1 gametes)</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0.001</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>w22</p>
+</td>
+<td>
+<p>fitness of AAbb (the Ab or G2/G2 gametes)</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0.001</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>w33</p>
+</td>
+<td>
+<p>fitness of aaBB (the aB or G3/G3 gametes)</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0.001</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>w44</p>
+</td>
+<td>
+<p>fitness of aabb (the ab or G4/G4 gametes)</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0.001</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>w12</p>
+</td>
+<td>
+<p>fitness of AABb (AB and Ab gametes, or G1/G2)</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0.001</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>w13</p>
+</td>
+<td>
+<p>fitness of AaBB (AB and aB gametes, or G1/G3)</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0.001</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>w24</p>
+</td>
+<td>
+<p>fitness of Aabb (Ab and ab gametes, or G2/G4)</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0.001</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>w34</p>
+</td>
+<td>
+<p>fitness of aaBb (aB and ab gametes, or G3/G4)</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0.001</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>wHet</p>
+</td>
+<td>
+<p>fitness of AaBb (either G1/G4 or G2/G3)</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0.001</p>
+</td>
+</tr>
+</table>
+<p><br></p>
+</li>
+<li><p>We’re getting there, just a few more variables to create before
+we can set the equations for our delta flows! Now we have the fitness
+values for diploid genotypes but when need to translate that into what
+happens with our gametes since we are keeping track of gametotypes
+(haploid), not genotypes (diploid). To do that, we’ll make some wbar
+(average fitness) variables, one for each gametotype. Then, you might
+remember we need to use a mean population fitness (wmean) to carry out
+selection so we’ll create that variable too.</p></li>
+<li>
+<p>Since we have 4 gametotypes, we will have 4 wbar variables, one
+for each type of gamete. These fitnesses will be the weighted average of
+the fitness of that gamete type when paired with each of the 4 gamete
+types (according to the frequency of that pairing). We’ll also set up
+wmean, which is similar to what we’ve used in past models. Following the
+table, set up these variables, place arrows, and then set the
+equations.</p>
+<table class="table">
+<tr>
+<td>
+<p><b>Variable</b></p>
+</td>
+<td>
+<p><b>Description</b></p>
+</td>
+<td>
+<p><b>Arrows from</b></p>
+</td>
+<td style="width:55%">
+<p><b>Equation</b></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>wbar1</p>
+</td>
+<td>
+<p>fitness of AB or G1 gametes</p>
+</td>
+<td>
+<p>G1, G2, G3, G4, w11, w12, w13, wHet</p>
+</td>
+<td>
+<p>G1<em>w11 + G2</em>w12 + G3<em>w13 + G4</em>wHet</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>wbar2</p>
+</td>
+<td>
+<p>fitness of Ab or G2 gametes</p>
+</td>
+<td>
+<p>G1, G2, G3, G4, w12, w22, wHet, w24</p>
+</td>
+<td>
+<p>G1<em>w12 + G2</em>w22 + G3<em>wHet + G4</em>w24</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>wbar3</p>
+</td>
+<td>
+<p>fitness of aB or G3 gametes</p>
+</td>
+<td>
+<p>G1, G2, G3, G4, w13, wHet, w33, w34</p>
+</td>
+<td>
+<p>G1<em>w13 + G2</em>wHet + G3<em>w33 + G4</em>w34</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>wbar4</p>
+</td>
+<td>
+<p>fitness of ab or G4 gametes</p>
+</td>
+<td>
+<p>G1, G2, G3, G4, wHet, w24, w34, w44</p>
+</td>
+<td>
+<p>G1<em>wHet + G2</em>w24 + G3<em>w34 + G4</em>w44</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>wmean</p>
+</td>
+<td>
+<p>mean fitness of the population, as we used before</p>
+</td>
+<td>
+<p>G1, G2, G3, G4, wbar1, wbar2, wbar3, wbar4</p>
+</td>
+<td>
+<p>G1<em>wbar1 + G2</em>wbar2 + G3<em>wbar3 + G4</em>wbar4</p>
+</td>
+</tr>
+</table>
+<p><br></p>
+</li>
+<li>
+<p>Phew! Those are all the components that we need to create. Now we
+can set up our deltaG1, deltaG2, deltaG3, and deltaG4 flows! Remember,
+these are the variables that determine how the frequency of each
+gametotype will change in the next generation, including selection (so
+using those wbar and wmean values). Connect arrows as indicated and then
+you can enter the equations.</p>
+<table class="table">
+<tr>
+<td>
+<p><b>Variable</b></p>
+</td>
+<td>
+<p><b>Arrows from</b></p>
+</td>
+<td>
+<p><b>Equation</b></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>deltaG1</p>
+</td>
+<td>
+<p>G1, wbar1, r, wHet, D, wmean</p>
+</td>
+<td>
+<p>(G1<em>wbar1 – r</em>wHet*D)/wmean - G1</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>deltaG2</p>
+</td>
+<td>
+<p>G2, wbar2, r, wHet, D, wmean</p>
+</td>
+<td>
+<p>(G2<em>wbar2 + r</em>wHet*D)/wmean - G2</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>deltaG3</p>
+</td>
+<td>
+<p>G3, wbar3, r, wHet, D, wmean</p>
+</td>
+<td>
+<p>(G3<em>wbar3 + r</em>wHet*D)/wmean - G3</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>deltaG4</p>
+</td>
+<td>
+<p>G4, wbar4, r, wHet, D, wmean</p>
+</td>
+<td>
+<p>(G4<em>wbar4 – r</em>wHet*D)/wmean - G4</p>
+</td>
+</tr>
+</table>
+<p><br></p>
+</li>
+<li>
+<p>Finally, we are ready to test out our model and then see what we
+can learn from it. Before we proceed though, let’s take a second to
+think about what we’re going to want to graph here. For one, we will
+want to know what is happening with each gamete type, so we’ll
+definitely want to graph G1, G2, G3, G4 – probably together on a single
+graph. Then we’ll want to look at allele frequencies, as we usually do,
+but we probably want to graph A and a separate from B and b. Finally,
+because linkage is an element of this model, we’ll want to graph D
+(disequilibrium) so we can see how far from equilibrium we are in terms
+of gametotype frequencies. Probably useful to graph D with Dmax (knowing
+that 0 is the minimum value). Note that Dmax will be a set value unless
+selection is happening in the model (because Dmax only changes when
+allele frequencies change).</p>
+</li>
+</ol>
 <hr>
-</div>
 </div>
 <div class="section level2">
 <h2 id="test">Test your model<a class="anchor" aria-label="anchor" href="#test"></a>
 </h2>
-<p>Run a baseline simulation with <span class="math inline">\(r =
-0.5\)</span> and <span class="math inline">\(D_{initial} =
-0.25\)</span>. You should observe <span class="math inline">\(D\)</span>
-decaying over time toward zero. If your lines are not moving as
-expected, check your gamete equations and ensure <span class="math inline">\(r\)</span> is connected to the flows.</p>
+<p>
+Our first test is just to click Simulate, to run the model with all the
+starting conditions that we set up (which are freqA1 = 1, freqB1 = 1, so
+only A and B alleles, thus only AB gametes). If you Graph G1, G2, G3,
+and G4, you should see that G1 is at 1.0, flat line, and everything else
+is flat at 0.
+</p>
+<p>
+If any values are different from this, there are mistakes somewhere in
+your model! Start by checking the equations for the gametotypes then
+check the equations for the flows next. Be careful of operators (*, +,
+or -) and parentheses.
+</p>
+<p>
+Now let’s click Simulation Control and try out a different no evolution
+scenario. Set the following variable values before naming your run and
+clicking Save. Then click Simulate.
+</p>
+<table class="table">
+<tr>
+<td>
+Dinitial
+</td>
+<td>
+r
+</td>
+<td>
+pAinit
+</td>
+<td>
+pBinit
+</td>
+<td>
+Fitnesses
+</td>
+<td>
+Description
+</td>
+</tr>
+<tr>
+<td>
+0
+</td>
+<td>
+0.5
+</td>
+<td>
+0.6
+</td>
+<td>
+0.3
+</td>
+<td>
+all 1.0
+</td>
+<td>
+No selection, unlinked, D=0
+</td>
+
+</tr>
+</table>
+<p><br></p>
+<p>
+Now graph G1-4. Then graph freqA1 and freqB1. You may want to remove all
+the lines from the current run. You can do that manually or use the
+Control Panel. Given that we have no selection and no disequilibrium to
+start, all the lines on the graph should remain flat. No change in
+allele or gamete type frequencies should occur. But notice that we do
+see the different gametes are present at different frequencies. You
+should be able to see how the gamete frequencies relate to the allele
+frequencies (for example, G1 = pA x pB).
+</p>
+<p>
+For a final check, let’s see what happens when we start the population
+off with maximum disequilibrium (for these allele frequencies) – just
+run the same conditions as above except change Dinitial to 1.
+</p>
+<table class="table">
+<tr>
+<td>
+Dinitial
+</td>
+<td>
+r
+</td>
+<td>
+pAinit
+</td>
+<td>
+pBinit
+</td>
+<td>
+Fitnesses
+</td>
+<td>
+Description
+</td>
+</tr>
+<tr>
+<td>
+1
+</td>
+<td>
+0.5
+</td>
+<td>
+0.6
+</td>
+<td>
+0.3
+</td>
+<td>
+all 1.0
+</td>
+<td>
+No selection, unlinked, D=0
+</td>
+
+</tr>
+</table>
+<p><br></p>
+<p>
+You should see that the population starts out of equilibrium and then
+the gamete frequencies reach the same equilibrium as in the previous
+run. What does this tell us about the effect of adding an association
+between alleles at different loci? Make sure to also look at the graph
+for D.
+</p>
 <hr>
 </div>
 <div class="section level2">
@@ -269,23 +1092,391 @@ expected, check your gamete equations and ensure <span class="math inline">\(r\)
 <h3 id="questions">Questions<a class="anchor" aria-label="anchor" href="#questions"></a>
 </h3>
 <ol style="list-style-type: decimal">
-<li><p><strong>Decay of <span class="math inline">\(D\)</span> over
-time.</strong> How does the recombination rate (<span class="math inline">\(r\)</span>) influence the speed at which gametic
-disequilibrium disappears? Run simulations with <span class="math inline">\(r = 0.5\)</span>, <span class="math inline">\(r =
-0.1\)</span>, and <span class="math inline">\(r =
-0.01\)</span>.</p></li>
-<li><p><strong>Selection and <span class="math inline">\(D\)</span>.</strong> Can selection create or
-maintain gametic disequilibrium even when recombination is occurring?
-Set <span class="math inline">\(r = 0.1\)</span> and apply different
-fitness values to the double homozygotes.</p></li>
-<li><p><strong>Hitchhiking.</strong> Observe what happens to the
-frequency of allele <span class="math inline">\(B_1\)</span> when it is
-neutral but the <span class="math inline">\(A\)</span> locus is under
-strong selection and <span class="math inline">\(D\)</span> is
-high.</p></li>
-<li><p><strong>Reflection.</strong> How does the concept of linkage
-disequilibrium help us map genes or understand the history of a
-population?</p></li>
+<li>
+<p><b>Physical linkage.</b> Let’s explore what happens when we allow
+loci to be physically linked (r &lt; 0.5). Use your conditions from
+above as a baseline and compare when we change the value of r. Make sure
+you compare between Dinitial=0 and Dinitial=1 too (starting with alleles
+randomly associated versus non-randomly associated). You will want a
+graph of G1-4 and a second graph of freqA1 and freqB1.<br></p>
+<table class="table">
+<tr>
+<td>
+<p>Trial</p>
+</td>
+<td>
+<p>Dinitial</p>
+</td>
+<td>
+<p>r</p>
+</td>
+<td>
+<p>pAinit</p>
+</td>
+<td>
+<p>pBinit</p>
+</td>
+<td>
+<p>Fitnesses</p>
+</td>
+<td>
+<p>Description</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>1a</p>
+</td>
+<td>
+<p>0 then 1</p>
+</td>
+<td>
+<p>0.5</p>
+</td>
+<td>
+<p>0.6</p>
+</td>
+<td>
+<p>0.3</p>
+</td>
+<td>
+<p>all 1.0</p>
+</td>
+<td>
+<p>No selection, unlinked, D=0</p>
+</td>
+
+</tr>
+<tr>
+<td>
+<p>1b</p>
+</td>
+<td>
+<p>0 then 1</p>
+</td>
+<td>
+<p>0.1</p>
+</td>
+<td>
+<p>0.6</p>
+</td>
+<td>
+<p>0.3</p>
+</td>
+<td>
+<p>all 1.0</p>
+</td>
+<td>
+<p>No selection, unlinked, D=0</p>
+</td>
+
+</tr>
+</table>
+<p><br> Do gametotypes reach the same values? Allele frequencies don’t
+change (they won’t unless we impose selection). Look at the
+disequilibrium (D) graph: what’s different when r = 0.5 versus 0.1? Why
+does this happen? <b>Summarize the effect of physical linkage on the
+system in the absence of selection.</b></p>
+</li>
+<li>
+<p><b>Genetic hitchhiking.</b> In this scenario, selection occurs at
+the B locus (favoring bb) but not the A locus. We’ll run with and
+without physical linkage and with/without initial disequlibrium:<br></p>
+<table class="table">
+<tr>
+<td>
+<p>Trial</p>
+</td>
+<td>
+<p>Dinitial</p>
+</td>
+<td>
+<p>r</p>
+</td>
+<td>
+<p>pAinit</p>
+</td>
+<td>
+<p>pBinit</p>
+</td>
+<td>
+<p>Fitnesses</p>
+</td>
+<td>
+<p>Description</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>2a</p>
+</td>
+<td>
+<p>0 then 1</p>
+</td>
+<td>
+<p>0.5</p>
+</td>
+<td>
+<p>0.5</p>
+</td>
+<td>
+<p>0.5</p>
+</td>
+<td>
+<p>1 for bb (w22, w44, w24), 0.8 for others</p>
+</td>
+<td>
+<p>unlinked</p>
+</td>
+
+</tr>
+<tr>
+<td>
+<p>2b</p>
+</td>
+<td>
+<p>0 then 1</p>
+</td>
+<td>
+<p>0.1</p>
+</td>
+<td>
+<p>0.5</p>
+</td>
+<td>
+<p>0.5</p>
+</td>
+<td>
+<p>1 for bb (w22, w44, w24), 0.8 for others</p>
+</td>
+<td>
+<p>linked</p>
+</td>
+
+</tr>
+</table>
+<p><br> Here is the matrix of fitness values (helps if you organize them
+in this shape in the model):<br></p>
+<table class="table">
+<tr>
+<td>
+</td>
+<td>
+<p>AA</p>
+</td>
+<td>
+<p>Aa</p>
+</td>
+<td>
+<p>aa</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>BB</p>
+</td>
+<td>
+<p>w11 = 0.8</p>
+</td>
+<td>
+<p>w13 = 0.8</p>
+</td>
+<td>
+<p>w33 = 0.8</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Bb</p>
+</td>
+<td>
+<p>w12 = 0.8</p>
+</td>
+<td>
+<p>wHet = 0.8</p>
+</td>
+<td>
+<p>w34 = 0.8</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>bb</p>
+</td>
+<td>
+<p>w22 = 1</p>
+</td>
+<td>
+<p>w24 = 1</p>
+</td>
+<td>
+<p>w44 = 1</p>
+</td>
+</tr>
+</table>
+<p><br> Compare the run with r = 0.5 and r = 0.1. Pay particular
+attention to the allele frequency graphs and the disequilibrium graph
+(graph of D). What’s the effect of having selection on one of the two
+loci when you start in equilibrium versus not? What about when loci are
+linked versus not? <b>Describe what happens in genetic hitchhiking,
+referring to what’s visible in your graphs.</b></p>
+</li>
+<li>
+<p><b>Epistasis.</b> So far we’ve considered selection on a single
+locus affecting a linked neutral locus. What if fitness depends on the
+genotype at BOTH loci – if we have epistasis instead of additivity? For
+this scenario, we’ll set up fitness relationships with dominance of A at
+the Alpha locus and the relationship at the Beta locus depends on your
+genotype at the Alpha locus, yielding either overdominance (if aa for
+the Alpha locus) or underdominance (if you have at least one A allele).
+Here are the fitness values for this scenario:<br></p>
+<table class="table">
+<tr>
+<td>
+</td>
+<td>
+<p>AA</p>
+</td>
+<td>
+<p>Aa</p>
+</td>
+<td>
+<p>aa</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>BB</p>
+</td>
+<td>
+<p>w11 = 0.95</p>
+</td>
+<td>
+<p>w13 = 0.95</p>
+</td>
+<td>
+<p>w33 = 0.85</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Bb</p>
+</td>
+<td>
+<p>w12 = 0.80</p>
+</td>
+<td>
+<p>wHet = 0.80</p>
+</td>
+<td>
+<p>w34 = 1.0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>bb</p>
+</td>
+<td>
+<p>w22 = 0.85</p>
+</td>
+<td>
+<p>w24 = 0.85</p>
+</td>
+<td>
+<p>w44 = 0.90</p>
+</td>
+</tr>
+</table>
+<p><br> As you can see, genotype aaBb has the highest fitness and AABb,
+AaBb have the lowest fitness. What do you think will happen to allele
+frequencies when we run this model for unlinked loci and starting in
+equilibrium? What about linked loci? And starting in
+disequilibrium?<br></p>
+<table class="table">
+<tr>
+<td>
+<p>Trial</p>
+</td>
+<td>
+<p>Dinitial</p>
+</td>
+<td>
+<p>r</p>
+</td>
+<td>
+<p>pAinit</p>
+</td>
+<td>
+<p>pBinit</p>
+</td>
+<td>
+<p>Fitnesses</p>
+</td>
+<td>
+<p>Description</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>3a</p>
+</td>
+<td>
+<p>0 then 1</p>
+</td>
+<td>
+<p>0.5</p>
+</td>
+<td>
+<p>0.5</p>
+</td>
+<td>
+<p>0.5</p>
+</td>
+<td>
+<p>as in above table</p>
+</td>
+<td>
+<p>unlinked</p>
+</td>
+
+</tr>
+<tr>
+<td>
+<p>3b</p>
+</td>
+<td>
+<p>0 then 1</p>
+</td>
+<td>
+<p>0.05</p>
+</td>
+<td>
+<p>0.5</p>
+</td>
+<td>
+<p>0.5</p>
+</td>
+<td>
+<p>as in above table</p>
+</td>
+<td>
+<p>loci linked</p>
+</td>
+
+</tr>
+</table>
+<p><br><b>Summarize the effects of epistasis with and without linkage
+and disequilibrium.</b></p>
+</li>
+<li>
+<p><b>Synthesis.</b> Review what you’ve seen in this lab in
+comparison to the labs we’ve explored in past weeks. How would you
+describe the effects of considering two loci instead of only one?
+Especially think about how multiple loci and physical linkage can
+interact with selection to influence how allele frequencies change. When
+you are finished with this lab, go outside, lay in the grass, and stare
+at the sky!! (Or do something equally relaxing, if you have time.)</p>
+</li>
 </ol>
 <p><strong>Remember to submit your model and responses via the <a href="https://forms.gle/E3QLACX1aA2Q6ist5" class="external-link">Google Drive
 Form</a>.</strong></p>
