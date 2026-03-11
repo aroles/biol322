@@ -136,7 +136,7 @@ knitr::include_graphics("../man/figures/lab6disequilibrium.png")
 	<table>
 	<tr><td><b>Variable</b></td><td><b>Equation</b></td></tr>
 	<tr><td>Dinitial</td><td>0</td></tr>
-	<tr><td>Dmax</td><td>IF THEN ELSE( Dinitial = 0 , 0 , MIN( pAinit*(1-pBinit) , pBinit*(1-pAinit) ) )</td></tr>
+	<tr><td>Dmax</td><td>IF THEN ELSE( Dinitial = 0 , 0 , MIN( pAinit * (1-pBinit) , pBinit * (1-pAinit) ) )</td></tr>
 	</table><br>
 
 8. Now we are ready to set up the initial values for our gametotype stocks! Note that in previous models we've been tracking the number of individuals with our stocks but in this model we're just going to store the frequency of each gamete type, not the total number -- hence we will not have a variable for population size. Place arrows as indicated in the table below. Then, select the Equation tool and set the <b>Initial Value</b> (NOT the equation) of each stock as in the following table. Make sure you place the arrows BEFORE typing in the equations!
