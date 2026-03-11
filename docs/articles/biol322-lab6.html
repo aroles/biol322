@@ -806,7 +806,7 @@ equations.</p>
 <p>G1, G2, G3, G4, w11, w12, w13, wHet</p>
 </td>
 <td>
-<p>G1<em>w11 + G2</em>w12 + G3<em>w13 + G4</em>wHet</p>
+<p>G1 * w11 + G2 * w12 + G3 * w13 + G4 * wHet</p>
 </td>
 </tr>
 <tr>
@@ -820,7 +820,7 @@ equations.</p>
 <p>G1, G2, G3, G4, w12, w22, wHet, w24</p>
 </td>
 <td>
-<p>G1<em>w12 + G2</em>w22 + G3<em>wHet + G4</em>w24</p>
+<p>G1 * w12 + G2 * w22 + G3 * wHet + G4 * w24</p>
 </td>
 </tr>
 <tr>
@@ -834,7 +834,7 @@ equations.</p>
 <p>G1, G2, G3, G4, w13, wHet, w33, w34</p>
 </td>
 <td>
-<p>G1<em>w13 + G2</em>wHet + G3<em>w33 + G4</em>w34</p>
+<p>G1 * w13 + G2 * wHet + G3 * w33 + G4 * w34</p>
 </td>
 </tr>
 <tr>
@@ -848,7 +848,7 @@ equations.</p>
 <p>G1, G2, G3, G4, wHet, w24, w34, w44</p>
 </td>
 <td>
-<p>G1<em>wHet + G2</em>w24 + G3<em>w34 + G4</em>w44</p>
+<p>G1 * wHet + G2 * w24 + G3 * w34 + G4 * w44</p>
 </td>
 </tr>
 <tr>
@@ -862,7 +862,7 @@ equations.</p>
 <p>G1, G2, G3, G4, wbar1, wbar2, wbar3, wbar4</p>
 </td>
 <td>
-<p>G1<em>wbar1 + G2</em>wbar2 + G3<em>wbar3 + G4</em>wbar4</p>
+<p>G1 * wbar1 + G2 * wbar2 + G3 * wbar3 + G4 * wbar4</p>
 </td>
 </tr>
 </table>
@@ -895,7 +895,7 @@ you can enter the equations.</p>
 <p>G1, wbar1, r, wHet, D, wmean</p>
 </td>
 <td>
-<p>(G1<em>wbar1 – r</em>wHet*D)/wmean - G1</p>
+<p>(G1 * wbar1 – (r * wHet * D))/wmean - G1</p>
 </td>
 </tr>
 <tr>
@@ -906,7 +906,7 @@ you can enter the equations.</p>
 <p>G2, wbar2, r, wHet, D, wmean</p>
 </td>
 <td>
-<p>(G2<em>wbar2 + r</em>wHet*D)/wmean - G2</p>
+<p>(G2 * wbar2 + (r * wHet * D))/wmean - G2</p>
 </td>
 </tr>
 <tr>
@@ -917,7 +917,7 @@ you can enter the equations.</p>
 <p>G3, wbar3, r, wHet, D, wmean</p>
 </td>
 <td>
-<p>(G3<em>wbar3 + r</em>wHet*D)/wmean - G3</p>
+<p>(G3 * wbar3 + (r * wHet * D))/wmean - G3</p>
 </td>
 </tr>
 <tr>
@@ -928,7 +928,7 @@ you can enter the equations.</p>
 <p>G4, wbar4, r, wHet, D, wmean</p>
 </td>
 <td>
-<p>(G4<em>wbar4 – r</em>wHet*D)/wmean - G4</p>
+<p>(G4 * wbar4 – (r * wHet * D))/wmean - G4</p>
 </td>
 </tr>
 </table>

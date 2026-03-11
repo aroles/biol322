@@ -273,40 +273,40 @@ knitr::include_graphics("../man/figures/lab6disequilibrium.png")
 <td>wbar1</td>
 <td>fitness of AB or G1 gametes</td>
 <td>G1, G2, G3, G4, w11, w12, w13, wHet</td>
-<td>G1*w11 + G2*w12 + G3*w13 + G4*wHet</td>
+<td>G1 * w11 + G2 * w12 + G3 * w13 + G4 * wHet</td>
 </tr>
 <tr>
 <td>wbar2</td>
 <td>fitness of Ab or G2 gametes</td>
 <td>G1, G2, G3, G4, w12, w22, wHet, w24</td>
-<td>G1*w12 + G2*w22 + G3*wHet + G4*w24</td>
+<td>G1 * w12 + G2 * w22 + G3 * wHet + G4 * w24</td>
 </tr>
 <tr>
 <td>wbar3</td>
 <td>fitness of aB or G3 gametes</td>
 <td>G1, G2, G3, G4, w13, wHet, w33, w34</td>
-<td>G1*w13 + G2*wHet + G3*w33 + G4*w34</td>
+<td>G1 * w13 + G2 * wHet + G3 * w33 + G4 * w34</td>
 </tr>
 <tr>
 <td>wbar4</td>
 <td>fitness of ab or G4 gametes</td>
 <td>G1, G2, G3, G4, wHet, w24, w34, w44</td>
-<td>G1*wHet + G2*w24 + G3*w34 + G4*w44</td></tr>
+<td>G1 * wHet + G2 * w24 + G3 * w34 + G4 * w44</td></tr>
 <tr>
 <td>wmean</td>
 <td>mean fitness of the population, as we used before</td>
 <td>G1, G2, G3, G4, wbar1, wbar2, wbar3, wbar4</td>
-<td>G1*wbar1 + G2*wbar2 + G3*wbar3 + G4*wbar4</td>
+<td>G1 * wbar1 + G2 * wbar2 + G3 * wbar3 + G4 * wbar4</td>
 </tr>
 </table><br>
 
 14. Phew! Those are all the components that we need to create. Now we can set up our deltaG1, deltaG2, deltaG3, and deltaG4 flows! Remember, these are the variables that determine how the frequency of each gametotype will change in the next generation, including selection (so using those wbar and wmean values). Connect arrows as indicated and then you can enter the equations.
 <table>
 <tr><td><b>Variable</b></td><td><b>Arrows from</b></td><td><b>Equation</b></td></tr>
-<tr><td>deltaG1</td><td>G1, wbar1, r, wHet, D, wmean</td><td>(G1*wbar1 – r*wHet*D)/wmean - G1</td>
-<tr><td>deltaG2</td><td>G2, wbar2, r, wHet, D, wmean</td><td>(G2*wbar2 + r*wHet*D)/wmean - G2</td>
-<tr><td>deltaG3</td><td>G3, wbar3, r, wHet, D, wmean</td><td>(G3*wbar3 + r*wHet*D)/wmean - G3</td>
-<tr><td>deltaG4</td><td>G4, wbar4, r, wHet, D, wmean</td><td>(G4*wbar4 – r*wHet*D)/wmean - G4</td>
+<tr><td>deltaG1</td><td>G1, wbar1, r, wHet, D, wmean</td><td>(G1 * wbar1 – (r * wHet * D))/wmean - G1</td>
+<tr><td>deltaG2</td><td>G2, wbar2, r, wHet, D, wmean</td><td>(G2 * wbar2 + (r * wHet * D))/wmean - G2</td>
+<tr><td>deltaG3</td><td>G3, wbar3, r, wHet, D, wmean</td><td>(G3 * wbar3 + (r * wHet * D))/wmean - G3</td>
+<tr><td>deltaG4</td><td>G4, wbar4, r, wHet, D, wmean</td><td>(G4 * wbar4 – (r * wHet * D))/wmean - G4</td>
 </table><br>
 
 15. Finally, we are ready to test out our model and then see what we can learn from it. Before we proceed though, let's take a second to think about what we're going to want to graph here. For one, we will want to know what is happening with each gamete type, so we'll definitely want to graph G1, G2, G3, G4 -- probably together on a single graph. Then we'll want to look at allele frequencies, as we usually do, but we probably want to graph A and a separate from B and b. Finally, because linkage is an element of this model, we'll want to graph D (disequilibrium) so we can see how far from equilibrium we are in terms of gametotype frequencies. Probably useful to graph D with Dmax (knowing that 0 is the minimum value). Note that Dmax will be a set value unless selection is happening in the model (because Dmax only changes when allele frequencies change).
