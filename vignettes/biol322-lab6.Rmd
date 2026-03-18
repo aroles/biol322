@@ -2,12 +2,15 @@
 title: "BIOL 322 Lab 6. Gametic Disequilibrium"
 author: "Angela Roles"
 date: "Spring 2026"
-output: 
+output:
   html_document:
-    toc: True
+    toc: true
   pdf_document:
-    toc: TRUE
+    toc: true
     toc_depth: 3
+  word_document:
+    toc: true
+    toc_depth: '3'
 pkgdown:
   as_is: true
 ---
@@ -81,10 +84,8 @@ G4 = ab gamete = 0.5 </p>
 
 ```{r, echo=FALSE, fig.alt="Image of the completed model for gametic disequilibrium"}
 knitr::include_graphics("../man/figures/lab6disequilibrium.png")
-
 ```
 
----
 
 ## Build the two-locus model {#build}
 
@@ -312,7 +313,6 @@ knitr::include_graphics("../man/figures/lab6disequilibrium.png")
 15. Finally, we are ready to test out our model and then see what we can learn from it. Before we proceed though, let's take a second to think about what we're going to want to graph here. For one, we will want to know what is happening with each gamete type, so we'll definitely want to graph G1, G2, G3, G4 -- probably together on a single graph. Then we'll want to look at allele frequencies, as we usually do, but we probably want to graph A and a separate from B and b. Finally, because linkage is an element of this model, we'll want to graph D (disequilibrium) so we can see how far from equilibrium we are in terms of gametotype frequencies. Probably useful to graph D with Dmax (knowing that 0 is the minimum value). Note that Dmax will be a set value unless selection is happening in the model (because Dmax only changes when allele frequencies change).
 </ol>
 
----
 
 ## Test your model {#test}
 
@@ -338,7 +338,6 @@ knitr::include_graphics("../man/figures/lab6disequilibrium.png")
 
 <p>You should see that the population starts out of equilibrium and then the gamete frequencies reach the same equilibrium as in the previous run. What does this tell us about the effect of adding an association between alleles at different loci? Make sure to also look at the graph for D.</p>
 
----
 
 ## Lab Write-Up {#submit}
 

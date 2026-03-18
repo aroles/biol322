@@ -22,4 +22,6 @@ For lab exercises, you will need to use the free modeling software program [Vens
 * [Lab 4. Adding Selection to the Drift Model](biol322-lab4.html)
 * [Lab 5. Adding Gene Flow to the Selection-Drift Model](biol322-lab5.html)
 * [Lab 6. Gametic Disequilibrium](biol322-lab6.html)
-<!-- * [Lab 7. Inbreeding](biol322-lab7.html) -->
+* [Lab 7. Inbreeding](biol322-lab7.html) 
+
+<!-- comments here -->
